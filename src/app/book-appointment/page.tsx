@@ -20,7 +20,8 @@ export default function BookAppointmentPage() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch('/api/appointment', {
+      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+      const response = await fetch(`${apiBaseUrl}/api/appointment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
