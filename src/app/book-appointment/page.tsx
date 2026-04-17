@@ -20,8 +20,8 @@ export default function BookAppointmentPage() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-      const response = await fetch(`${apiBaseUrl}/api/appointment`, {
+      // Hardcoded live backend URL for guaranteed connectivity across hosting platforms
+      const response = await fetch('https://modern-garage-backend.vercel.app/api/appointment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
