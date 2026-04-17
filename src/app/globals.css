@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #E10600;
+  --color-black: #0B0B0B;
+  --color-white: #FFFFFF;
+  --color-grayCustom-light: #F5F5F5;
+  --color-grayCustom-text: #6B7280;
+  --color-grayCustom-border: #E5E7EB;
+  --color-grayCustom-darkText: #1F2937;
+  
+  --font-heading: var(--font-poppins), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  
+  --radius-xl: 12px;
+}
+
+@layer base {
+  body {
+    @apply font-body bg-white text-grayCustom-darkText;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-black;
+  }
+}
