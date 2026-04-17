@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle, ShieldCheck, Clock, Car, PhoneCall, ArrowRight, User, Mail, Smartphone, CalendarDays } from "lucide-react";
+import { CheckCircle, ShieldCheck, Clock, Car, PhoneCall, ArrowRight, User, Mail, Smartphone, CalendarDays, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -106,16 +106,19 @@ export default function BookAppointmentPage() {
             </div>
             
             <div className="grid md:grid-cols-2 gap-5 mt-5">
-              <div className="md:col-span-2">
+              <div className="md:col-span-2 relative">
                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" htmlFor="service">Requested Service <span className="text-primary">*</span></label>
-                <select required id="service" name="service" className="w-full bg-gray-50 border border-transparent rounded-xl px-4 py-4 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none font-medium">
-                  <option value="">Select a service...</option>
-                  <option value="Diagnostics">Check Engine Light / Diagnostics</option>
-                  <option value="Brakes">Brake Service</option>
-                  <option value="Oil">Oil Change</option>
-                  <option value="Tires">Tire Repair / Replacement</option>
-                  <option value="General">General Maintenance / Other</option>
-                </select>
+                <div className="relative">
+                  <select required id="service" name="service" className="w-full bg-gray-50 border border-transparent rounded-xl px-4 py-4 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none font-medium cursor-pointer">
+                    <option value="">Select a service...</option>
+                    <option value="Diagnostics">Check Engine Light / Diagnostics</option>
+                    <option value="Brakes">Brake Service</option>
+                    <option value="Oil">Oil Change</option>
+                    <option value="Tires">Tire Repair / Replacement</option>
+                    <option value="General">General Maintenance / Other</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                </div>
               </div>
               <div className="relative">
                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" htmlFor="date">Preferred Date</label>
@@ -124,14 +127,17 @@ export default function BookAppointmentPage() {
                   <input id="date" name="date" type="date" className="w-full bg-gray-50 border border-transparent rounded-xl pl-12 pr-4 py-4 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-medium text-gray-600" />
                 </div>
               </div>
-              <div>
+              <div className="relative">
                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" htmlFor="time">Preferred Time</label>
-                <select id="time" name="time" className="w-full bg-gray-50 border border-transparent rounded-xl px-4 py-4 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none cursor-pointer font-medium text-gray-600">
-                  <option value="">Any time</option>
-                  <option value="morning">Morning (8am - 12pm)</option>
-                  <option value="afternoon">Afternoon (12pm - 4pm)</option>
-                  <option value="late">Late (4pm+)</option>
-                </select>
+                <div className="relative">
+                  <select id="time" name="time" className="w-full bg-gray-50 border border-transparent rounded-xl px-4 py-4 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none cursor-pointer font-medium text-gray-600">
+                    <option value="">Any time</option>
+                    <option value="morning">Morning (8am - 12pm)</option>
+                    <option value="afternoon">Afternoon (12pm - 4pm)</option>
+                    <option value="late">Late (4pm+)</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                </div>
               </div>
               <div className="md:col-span-2">
                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" htmlFor="notes">Additional Notes</label>
