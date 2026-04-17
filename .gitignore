@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Isolated Backend (Kept locally but ignored in this repo)
+src/app/api/appointment/
+src/backend/
+node_modules/nodemailer/
