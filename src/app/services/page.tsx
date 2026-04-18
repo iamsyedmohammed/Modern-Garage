@@ -1,11 +1,26 @@
 import Link from "next/link";
 import { servicesData } from "@/data/services";
-import { ArrowRight, Wrench } from "lucide-react";
+import { ArrowRight, Wrench, Disc, Activity, Wind, CircleDashed, MoveHorizontal, MoveVertical, Thermometer, BatteryCharging, Zap, AlertCircle, Droplet, Settings } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Auto Repair Services",
   description: "Explore our comprehensive auto repair services in Manchester, NH. We offer brake repair, engine diagnostics, oil changes, tire services, and more.",
+};
+
+const iconMap: Record<string, React.ElementType> = {
+  "brake-repair-manchester-nh": Disc,
+  "engine-diagnostics-manchester-nh": Activity,
+  "exhaust-repair-manchester-nh": Wind,
+  "tire-services-manchester-nh": CircleDashed,
+  "wheel-alignment-manchester-nh": MoveHorizontal,
+  "suspension-steering-repair-manchester-nh": MoveVertical,
+  "radiator-cooling-system-repair-manchester-nh": Thermometer,
+  "battery-replacement-manchester-nh": BatteryCharging,
+  "electrical-diagnostics-manchester-nh": Zap,
+  "check-engine-light-diagnostics-manchester-nh": AlertCircle,
+  "oil-change-maintenance-manchester-nh": Droplet,
+  "transmission-diagnostics-manchester-nh": Settings,
 };
 
 export default function ServicesPage() {
@@ -27,11 +42,13 @@ export default function ServicesPage() {
       <section className="py-24 bg-grayCustom-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {servicesData.map((service) => (
+            {servicesData.map((service) => {
+              const Icon = iconMap[service.slug] || Wrench;
+              return (
               <div key={service.slug} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-grayCustom-border flex flex-col h-full">
                 <div className="p-8 flex-grow flex flex-col">
                   <div className="w-14 h-14 bg-grayCustom-light rounded-lg flex items-center justify-center mb-6">
-                    <Wrench className="w-7 h-7 text-primary" />
+                    <Icon className="w-7 h-7 text-primary" />
                   </div>
                   <h2 className="text-2xl font-heading font-bold mb-4">{service.title}</h2>
                   <p className="text-grayCustom-text mb-8 flex-grow">
@@ -39,14 +56,15 @@ export default function ServicesPage() {
                   </p>
                   <Link 
                     href={`/services/${service.slug}`}
-                    className="inline-flex items-center text-primary font-bold hover:text-red-800 transition-colors mt-auto"
+                    className="inline-flex items-center justify-center bg-primary text-white font-bold hover:bg-red-800 transition-colors mt-auto px-6 py-3 rounded-lg w-fit"
                   >
                     View Details
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

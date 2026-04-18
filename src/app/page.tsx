@@ -3,7 +3,8 @@ import Image from "next/image";
 import { 
   Wrench, ShieldCheck, Clock, Settings, Zap, 
   MapPin, Phone, Mail, ArrowRight, CheckCircle2,
-  Car, Activity, Disc, Battery, Settings2
+  Car, Activity, Disc, Battery, Settings2,
+  Droplet, CircleDashed, MoveHorizontal, AlertCircle, BatteryCharging, Wind, Quote, ChevronDown
 } from "lucide-react";
 
 export default function Home() {
@@ -82,23 +83,27 @@ export default function Home() {
             {[
               { title: "Brake Repair", icon: Disc, url: "/services/brake-repair-manchester-nh" },
               { title: "Engine Diagnostics", icon: Activity, url: "/services/engine-diagnostics-manchester-nh" },
-              { title: "Oil Change", icon: Settings, url: "/services/oil-change-maintenance-manchester-nh" },
-              { title: "Tire Services", icon: Car, url: "/services/tire-services-manchester-nh" },
-              { title: "Wheel Alignment", icon: Settings2, url: "/services/wheel-alignment-manchester-nh" },
-              { title: "Check Engine", icon: Zap, url: "/services/check-engine-light-diagnostics-manchester-nh" },
-              { title: "Battery Services", icon: Battery, url: "/services/battery-replacement-manchester-nh" },
-              { title: "Exhaust Repair", icon: Wrench, url: "/services/exhaust-repair-manchester-nh" },
+              { title: "Oil Change", icon: Droplet, url: "/services/oil-change-maintenance-manchester-nh" },
+              { title: "Tire Services", icon: CircleDashed, url: "/services/tire-services-manchester-nh" },
+              { title: "Wheel Alignment", icon: MoveHorizontal, url: "/services/wheel-alignment-manchester-nh" },
+              { title: "Check Engine", icon: AlertCircle, url: "/services/check-engine-light-diagnostics-manchester-nh" },
+              { title: "Battery Services", icon: BatteryCharging, url: "/services/battery-replacement-manchester-nh" },
+              { title: "Exhaust Repair", icon: Wind, url: "/services/exhaust-repair-manchester-nh" },
             ].map((service, i) => (
-              <Link key={i} href={service.url} className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-grayCustom-border hover:border-primary flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-grayCustom-light group-hover:bg-primary/10 rounded-full flex items-center justify-center mb-6 transition-colors">
-                  <service.icon className="w-8 h-8 text-black group-hover:text-primary transition-colors" />
+              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-grayCustom-border flex flex-col items-center text-center h-full">
+                <div className="w-16 h-16 bg-grayCustom-light rounded-full flex items-center justify-center mb-6 transition-colors">
+                  <service.icon className="w-8 h-8 text-primary transition-colors" />
                 </div>
-                <h4 className="text-xl font-heading font-bold mb-3">{service.title}</h4>
-                <div className="mt-auto flex items-center text-primary font-medium tracking-wide">
-                  <span className="group-hover:mr-2 transition-all">Learn more</span>
-                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all -ml-4 group-hover:ml-0" />
-                </div>
-              </Link>
+                <h4 className="text-xl font-heading font-bold mb-6">{service.title}</h4>
+                <div className="flex-grow"></div>
+                <Link 
+                  href={service.url}
+                  className="inline-flex items-center justify-center bg-transparent border-2 border-black text-black hover:bg-black hover:text-white font-bold transition-colors mt-auto px-6 py-3 rounded-xl w-fit group"
+                >
+                  View Details
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
             ))}
           </div>
           
@@ -180,25 +185,49 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {[ 
+              { title: "Complete Engine Rebuild", tag: "Engine", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1200&auto=format&fit=crop" },
               { title: "Brake Rotor Replacement", tag: "Brakes", img: "https://images.unsplash.com/photo-1579606132009-17bd127aa2fd?q=80&w=800&auto=format&fit=crop" },
-              { title: "Engine Rebuild", tag: "Engine", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=800&auto=format&fit=crop" },
               { title: "Full Exhaust Installation", tag: "Exhaust", img: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=800&auto=format&fit=crop" }
             ].map((item, i) => (
-              <div key={i} className="group relative rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-grayCustom-border">
-                <div className="aspect-[4/3] bg-gray-200">
-                  <div 
-                    className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                    style={{ backgroundImage: `url(${item.img})` }}
-                  />
+              <div 
+                key={i} 
+                className={`group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-primary/20 ${
+                  i === 0 ? "md:col-span-8 md:row-span-2 min-h-[400px]" : "md:col-span-4 min-h-[250px]"
+                }`}
+              >
+                <div 
+                  className="absolute inset-0 w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                  style={{ backgroundImage: `url(${item.img})` }}
+                />
+                
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-colors duration-500 z-0" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                
+                <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="bg-primary text-white p-4 rounded-full translate-y-8 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
+                    <ArrowRight className="w-6 h-6 -rotate-45" /> 
+                  </div>
                 </div>
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 p-6 pt-12">
-                  <span className="text-xs font-bold text-primary uppercase inline-block mb-1 bg-black/50 px-2 py-1 rounded backdrop-blur-sm">{item.tag}</span>
-                  <h4 className="text-white font-bold text-lg">{item.title}</h4>
+
+                <div className="absolute inset-x-0 bottom-0 p-8 z-30 flex flex-col justify-end">
+                  <span className="text-xs font-bold text-white bg-primary uppercase inline-block mb-3 px-4 py-1.5 rounded-full w-fit shadow-md tracking-wider">
+                    {item.tag}
+                  </span>
+                  <h4 className={`text-white font-heading font-bold ${i === 0 ? "text-3xl md:text-4xl" : "text-xl"} translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out`}>
+                    {item.title}
+                  </h4>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-16 text-center">
+             <Link href="/gallery" className="inline-flex items-center justify-center bg-primary border-2 border-primary text-white hover:bg-red-800 hover:border-red-800 font-bold transition-all px-8 py-4 rounded-xl text-lg w-fit group shadow-md hover:shadow-lg">
+              View Complete Gallery
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </div>
       </section>
@@ -235,22 +264,71 @@ export default function Home() {
                 service: "Tire & Alignment"
               }
             ].map((review, i) => (
-              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-grayCustom-border flex flex-col">
-                <p className="text-grayCustom-darkText italic mb-6 leading-relaxed flex-grow">
-                  "{review.text}"
-                </p>
-                <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
-                  <span className="font-bold font-heading text-black">{review.name}</span>
-                  <span className="text-xs text-primary font-bold bg-primary/10 px-2 py-1 rounded">{review.service}</span>
+              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-gray-100 flex flex-col relative overflow-hidden group">
+                <Quote className="absolute -top-4 -right-4 w-24 h-24 text-gray-50 opacity-60 rotate-12 group-hover:scale-110 group-hover:text-gray-100 transition-all duration-500" />
+                
+                <div className="flex flex-col mb-6 relative z-10 flex-grow">
+                   <div className="flex items-center space-x-1 mb-4 text-yellow-400">
+                     {[...Array(5)].map((_, i) => (
+                       <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                     ))}
+                   </div>
+                   <p className="text-gray-700 font-medium leading-relaxed italic text-lg">
+                     "{review.text}"
+                   </p>
+                </div>
+                
+                <div className="flex items-center border-t border-gray-100 pt-6 mt-auto relative z-10 w-full">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-red-800 flex items-center justify-center text-white font-bold text-xl mr-4 shadow-sm">
+                    {review.name.charAt(0)}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-gray-900">{review.name}</span>
+                    <span className="text-xs text-primary font-bold uppercase tracking-wider">{review.service}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
           
-          <div className="text-center">
-            <a href="#" className="inline-flex items-center font-bold text-black border-2 border-black hover:bg-black hover:text-white px-6 py-3 rounded-xl transition-colors">
+          <div className="text-center mt-4">
+            <a href="#" className="inline-flex items-center justify-center bg-black text-white font-bold hover:bg-gray-900 transition-all shadow-lg hover:shadow-xl px-8 py-4 rounded-xl text-lg w-fit group">
               Read All Reviews
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* FREQUENTLY ASKED QUESTIONS */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-primary font-bold tracking-wider uppercase mb-3">FAQ</h2>
+            <h3 className="text-4xl font-heading font-bold text-black mb-6">Frequently Asked Questions</h3>
+            <p className="text-lg text-grayCustom-text">
+              Have questions about your vehicle's repair? Here are some of the most common questions we get from our Manchester customers.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { q: "How often should I get my oil changed?", a: "For modern vehicles using synthetic oil, we generally recommend an oil change every 5,000 to 7,500 miles. However, the best interval relies heavily on your driving habits and your vehicle's factory specifications. Check your manual or ask our technicians!" },
+              { q: "Why is my check engine light on?", a: "The check engine light can trigger for dozens of reasons—from a loose gas cap to a failing catalytic converter. Since it's impossible to know without reading the code, we highly recommend bringing it in for a quick diagnostic rather than ignoring it." },
+              { q: "Do you offer warranties on your repairs?", a: "Yes! We stand entirely behind our work. Most repairs include a standard warranty on both parts and labor. Restrictions may apply depending on the specific service and parts used, which we discuss upfront." },
+              { q: "Can I drop my car off after hours?", a: "Absolutely. We have a secure drop-box located at the front of our shop. Simply park your car, fill out one of the provided envelopes with your contact information, lock your keys inside, and drop it in." },
+              { q: "Do you provide estimates before doing the work?", a: "We believe in 100% transparency. We will always provide a detailed estimate and ask for your explicit approval before performing any service on your vehicle. No surprise bills, ever." },
+            ].map((faq, i) => (
+              <details key={i} className="group bg-grayCustom-light rounded-2xl border border-gray-100 [&_summary::-webkit-details-marker]:hidden open:shadow-md transition-all duration-300">
+                <summary className="flex cursor-pointer items-center justify-between gap-1.5 p-6 font-bold text-lg text-gray-900 transition-all">
+                  {faq.q}
+                  <ChevronDown className="w-6 h-6 text-primary transition-transform duration-300 group-open:rotate-180 shrink-0" />
+                </summary>
+                <p className="px-6 pb-6 pt-2 text-gray-700 leading-relaxed">
+                  {faq.a}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

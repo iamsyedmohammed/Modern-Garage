@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Calendar, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, Calendar, ChevronDown, ArrowRight } from "lucide-react";
 import { servicesData } from "@/data/services";
 
 export default function Header() {
@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <header className="bg-black text-white fixed top-0 w-full z-50 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="flex justify-between items-center h-[84px] sm:h-[96px]">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
@@ -38,8 +38,9 @@ export default function Header() {
                     </Link>
                   ))}
                   <div className="bg-gray-50 px-5 py-4 rounded-b-xl border-t border-gray-200 mt-1">
-                    <Link href="/services" className="text-primary font-bold text-sm tracking-wide hover:text-red-700 flex items-center uppercase">
-                      View All Services &rarr;
+                    <Link href="/services" className="text-primary font-bold text-sm tracking-wide hover:text-red-700 flex items-center uppercase group">
+                      View All Services
+                      <ArrowRight className="ml-1.5 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                     </Link>
                   </div>
                 </div>
@@ -100,8 +101,9 @@ export default function Header() {
                      {s.title}
                    </Link>
                  ))}
-                 <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="text-lg text-primary font-bold pt-2 border-t border-gray-800">
-                   View All Services &rarr;
+                 <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="text-lg text-primary font-bold pt-2 border-t border-gray-800 flex items-center">
+                   View All Services
+                   <ArrowRight className="ml-1.5 w-5 h-5" />
                  </Link>
                </div>
             </div>
