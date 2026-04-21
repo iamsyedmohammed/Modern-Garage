@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Calendar, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, Phone, ChevronDown, ArrowRight } from "lucide-react";
 import { servicesData } from "@/data/services";
 
 export default function Header() {
@@ -122,21 +122,6 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(false)}
           >
             Contact
-          </Link>
-        </div>
-        
-        <div className="p-6 border-t border-gray-800 bg-black/80 pb-12 space-y-4">
-          <a href="tel:+16036224428" className="flex items-center justify-center w-full bg-gray-900 border border-gray-800 text-white px-4 py-4 rounded-xl font-bold text-xl shadow-lg transition-transform active:scale-95">
-            <Phone className="w-5 h-5 mr-3 text-primary animate-pulse" />
-            603-622-4428
-          </a>
-          <Link 
-            href="/book-appointment" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center justify-center w-full bg-primary hover:bg-red-700 text-white px-4 py-4 rounded-xl font-bold uppercase tracking-wide text-center text-lg shadow-[0_0_20px_rgba(225,6,0,0.3)] transition-transform active:scale-95"
-          >
-            <Calendar className="w-5 h-5 mr-3" />
-            Book Appt
           </Link>
         </div>
       </div>

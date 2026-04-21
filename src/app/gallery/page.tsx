@@ -54,11 +54,7 @@ export default function GalleryPage() {
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-colors duration-500 z-0" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                 
-                <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="bg-primary text-white p-4 rounded-full translate-y-8 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
-                    <Search className="w-6 h-6" /> 
-                  </div>
-                </div>
+
 
                 <div className="absolute inset-x-0 bottom-0 p-8 z-30 flex flex-col justify-end">
                   <span className="text-xs font-bold text-white bg-primary uppercase inline-block mb-3 px-4 py-1.5 rounded-full w-fit shadow-md tracking-wider">
