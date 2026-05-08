@@ -11,8 +11,13 @@ export default function Footer() {
           {/* Brand & About */}
           <div>
             <div className="mb-6">
-              <Link href="/" className="font-heading font-bold text-3xl tracking-tight text-white">
-                MODERN<span className="text-primary italic">AUTO</span>
+              <Link href="/" className="flex items-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/logo/logo.jpeg" 
+                  alt="Modern Auto Garage Logo" 
+                  className="h-[60px] w-auto object-contain"
+                />
               </Link>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">

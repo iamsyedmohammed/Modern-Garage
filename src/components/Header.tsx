@@ -15,10 +15,14 @@ export default function Header() {
     <header className="bg-black text-white fixed top-0 w-full z-50 shadow-md">
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="flex justify-between items-center h-[84px] sm:h-[96px]">
-          {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="font-heading font-bold text-2xl sm:text-3xl tracking-tight">
-              MODERN<span className="text-primary italic">AUTO</span>
+            <Link href="/" className="flex items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/logo/logo.jpeg" 
+                alt="Modern Auto Garage Logo" 
+                className="h-[60px] sm:h-[80px] w-auto object-contain"
+              />
             </Link>
           </div>
 
