@@ -25,6 +25,8 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8 items-center h-full">
             
+            <Link href="/" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Home</Link>
+
             <div className="relative group h-full flex items-center">
               <Link href="/services" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">
                 Services <ChevronDown className="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" />
@@ -47,6 +49,7 @@ export default function Header() {
               </div>
             </div>
 
+            <Link href="/gallery" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Gallery</Link>
             <Link href="/about" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">About</Link>
             <Link href="/contact" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Contact</Link>
             
@@ -86,6 +89,14 @@ export default function Header() {
         }`}
       >
         <div className="flex-1 flex flex-col pt-8 px-6 space-y-4 overflow-y-auto">
+          <Link 
+            href="/" 
+            className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Home
+          </Link>
+
           <div>
             <button 
               onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
@@ -109,6 +120,13 @@ export default function Header() {
             </div>
           </div>
 
+          <Link 
+            href="/gallery" 
+            className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Gallery
+          </Link>
           <Link 
             href="/about" 
             className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"

@@ -1,13 +1,69 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
   Wrench, ShieldCheck, Clock, Settings, Zap, 
   MapPin, Phone, Mail, ArrowRight, CheckCircle2,
   Car, Activity, Disc, Battery, Settings2,
-  Droplet, CircleDashed, MoveHorizontal, AlertCircle, BatteryCharging, Wind, Quote, ChevronDown
+  Droplet, CircleDashed, MoveHorizontal, AlertCircle, BatteryCharging, Wind, Quote, ChevronDown,
+  Stethoscope, Info
 } from "lucide-react";
 
 export default function Home() {
+  const [activeSymptom, setActiveSymptom] = useState(0);
+
+  const symptoms = [
+    { 
+      title: "Squeaky Brakes", 
+      icon: Disc, 
+      desc: "High-pitched squealing or grinding noises often indicate worn brake pads or rotor issues. Ignoring these sounds can lead to more expensive repairs and reduced stopping power.",
+      fix: "Brake Pad Replacement / Rotor Resurfacing"
+    },
+    { 
+      title: "Check Engine Light", 
+      icon: AlertCircle, 
+      desc: "A glowing engine icon could mean anything from a loose gas cap to a serious engine fault. Our factory-level scanners pinpoint the exact error code to save you time and money.",
+      fix: "Computerized Diagnostics"
+    },
+    { 
+      title: "Slow Engine Crank", 
+      icon: BatteryCharging, 
+      desc: "If your engine struggles to turn over or your headlights seem dim, your battery is likely failing or your alternator isn't charging correctly. We test both systems.",
+      fix: "Battery Replacement / Alternator Repair"
+    },
+    { 
+      title: "Steering Vibration", 
+      icon: MoveHorizontal, 
+      desc: "Shaking in the steering wheel at high speeds usually points to tire imbalance or alignment issues, while low-speed vibrations can indicate suspension wear.",
+      fix: "Wheel Alignment & Balancing"
+    },
+    { 
+      title: "Fluid Leaks", 
+      icon: Droplet, 
+      desc: "Bright green, red, or dark brown puddles under your vehicle are signs of cooling, transmission, or oil leaks. Catching these early prevents engine overheating and failure.",
+      fix: "Leak Detection & Seal Repair"
+    }
+  ];
+
+  const brands = [
+    { name: "Audi", src: "/brands/audi-logo.png" },
+    { name: "BMW", src: "/brands/bmw-logo.png" },
+    { name: "Chevrolet", src: "/brands/chevrolet-logo.png" },
+    { name: "Fiat", src: "/brands/fiat-logo.png" },
+    { name: "Ford", src: "/brands/ford-logo.png" },
+    { name: "Honda", src: "/brands/honda-logo.png" },
+    { name: "Hyundai", src: "/brands/hyundai-logo.png" },
+    { name: "Kia", src: "/brands/kia-logo.png" },
+    { name: "Lexus", src: "/brands/lexus-logo.png" },
+    { name: "Mercedes-Benz", src: "/brands/mercedes-benz-logo.png" },
+    { name: "Mitsubishi", src: "/brands/mitsubishi-logo.png" },
+    { name: "Nissan", src: "/brands/nissan-logo.png" },
+    { name: "Toyota", src: "/brands/toyota-logo.png" },
+    { name: "Volkswagen", src: "/brands/volkswagen-logo.png" },
+    { name: "Volvo", src: "/brands/volvo-logo.png" },
+  ];
   return (
     <>
       <script
@@ -68,6 +124,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* BRANDS MARQUEE */}
+      <div className="bg-white border-y border-gray-100 py-10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 mb-6">
+          <p className="text-center text-sm font-bold text-primary uppercase tracking-[0.2em]">Expert Service for All Major Brands</p>
+        </div>
+        <div className="relative flex">
+          <div className="flex animate-marquee whitespace-nowrap items-center">
+            {Array(4).fill(brands).flat().map((brand, i) => (
+              <div key={i} className="mx-12 flex-shrink-0 w-32 h-16 relative transition-all group">
+                <Image
+                  src={brand.src}
+                  alt={brand.name}
+                  fill
+                  className="object-contain"
+                />
+                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-tighter">
+                  {brand.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* SERVICES OVERVIEW */}
       <section className="py-16 md:py-24 bg-grayCustom-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,6 +191,151 @@ export default function Home() {
             <Link href="/services" className="inline-flex items-center font-bold text-white bg-primary hover:bg-red-700 px-8 py-4 rounded-xl transition-all shadow-md text-lg">
               View All Services <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* DIAGNOSTIC TOOL */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-1.5 bg-primary/10 text-primary font-bold rounded-full mb-4">
+              <Stethoscope className="w-4 h-4 mr-2" />
+              Digital Diagnostic Tool
+            </div>
+            <h3 className="text-4xl md:text-5xl font-heading font-bold text-black mb-6">Self-Service Symptom Checker</h3>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Select what your vehicle is experiencing for an instant preliminary diagnosis and recommended next steps.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-black/5 border border-gray-100 overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
+            {/* Sidebar: Symptom Selection */}
+            <div className="lg:w-[380px] bg-gray-50/50 p-8 border-r border-gray-100">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 px-2">Common Symptoms</p>
+              <div className="space-y-2">
+                {symptoms.map((symptom, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveSymptom(i)}
+                    className={`w-full flex items-center p-4 rounded-2xl transition-all text-left group relative ${
+                      activeSymptom === i 
+                      ? "bg-white shadow-md ring-1 ring-black/5" 
+                      : "hover:bg-white/50"
+                    }`}
+                  >
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center mr-4 transition-all ${
+                      activeSymptom === i ? "bg-primary text-white scale-110 shadow-lg shadow-primary/20" : "bg-gray-100 text-gray-400 group-hover:text-primary"
+                    }`}>
+                      <symptom.icon className="w-5 h-5" />
+                    </div>
+                    <span className={`font-bold transition-colors ${
+                      activeSymptom === i ? "text-black" : "text-gray-500 group-hover:text-black"
+                    }`}>
+                      {symptom.title}
+                    </span>
+                    {activeSymptom === i && (
+                      <div className="absolute right-4 w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                    )}
+                  </button>
+                ))}
+              </div>
+              
+              <div className="mt-12 p-6 bg-primary/5 rounded-2xl border border-primary/10">
+                <p className="text-sm text-primary font-bold mb-2 flex items-center">
+                  <AlertCircle className="w-4 h-4 mr-2" /> Not seeing your issue?
+                </p>
+                <p className="text-xs text-gray-600 leading-relaxed mb-4">Our master technicians can diagnose any issue, no matter how complex or rare.</p>
+                <a href="tel:+16036224428" className="text-sm font-bold text-black hover:text-primary transition-colors flex items-center">
+                  Call for Expert Help <ArrowRight className="ml-2 w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {/* Main Content: Diagnostic Report */}
+            <div className="flex-1 p-8 md:p-12 lg:p-16 flex flex-col relative bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-gray-50/50 via-white to-white">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+                <div className="flex items-center">
+                  <div className="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-primary mr-6 border border-gray-100">
+                    {(() => {
+                      const Icon = symptoms[activeSymptom].icon;
+                      return <Icon className="w-8 h-8" />;
+                    })()}
+                  </div>
+                  <div>
+                    <h4 className="text-3xl font-heading font-bold text-black">{symptoms[activeSymptom].title}</h4>
+                    <div className="flex items-center mt-1">
+                      <span className="w-2 h-2 rounded-full bg-primary animate-ping mr-2" />
+                      <span className="text-primary font-bold text-xs uppercase tracking-widest">Active Analysis</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3">
+                  <div className="px-4 py-2 bg-gray-100 rounded-lg text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">
+                    Repair Urgency<br/>
+                    <span className="text-black text-xs">High</span>
+                  </div>
+                  <div className="px-4 py-2 bg-gray-100 rounded-lg text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">
+                    Complexity<br/>
+                    <span className="text-black text-xs">Moderate</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-5 gap-12 items-start">
+                <div className="md:col-span-3 space-y-8">
+                  <div>
+                    <h5 className="text-sm font-bold text-black uppercase tracking-widest mb-4 flex items-center">
+                      <Info className="w-4 h-4 mr-2 text-primary" />
+                      Technical Explanation
+                    </h5>
+                    <p className="text-gray-600 text-lg leading-relaxed font-medium">
+                      {symptoms[activeSymptom].desc}
+                    </p>
+                  </div>
+
+                  <div className="p-8 bg-black rounded-[2rem] text-white shadow-2xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
+                       <Settings className="w-32 h-32 rotate-12" />
+                    </div>
+                    <div className="relative z-10">
+                      <p className="text-primary font-bold text-xs uppercase tracking-[0.2em] mb-3">Professional Resolution</p>
+                      <h6 className="text-2xl font-heading font-bold mb-6 text-white">{symptoms[activeSymptom].fix}</h6>
+                      <Link 
+                        href="/book-appointment" 
+                        className="inline-flex items-center justify-center bg-primary hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/40 active:scale-95"
+                      >
+                        Schedule Diagnostic
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="md:col-span-2 space-y-6">
+                   <div className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                      <h5 className="font-bold text-black mb-4 flex items-center text-sm">
+                        <CheckCircle2 className="w-4 h-4 mr-2 text-green-500" />
+                        What We Check
+                      </h5>
+                      <ul className="space-y-3">
+                        {["Computerized Scanning", "Physical Component Stress Test", "Fluid Integrity Check", "Safety Verification"].map((check, i) => (
+                          <li key={i} className="text-xs text-gray-500 flex items-center">
+                            <div className="w-1 h-1 rounded-full bg-gray-300 mr-2" />
+                            {check}
+                          </li>
+                        ))}
+                      </ul>
+                   </div>
+
+                   <div className="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+                      <p className="text-xs text-gray-400 mb-1">Estimated Diagnostic Time</p>
+                      <p className="text-lg font-bold text-white">45 - 60 Minutes</p>
+                   </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -159,15 +384,20 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
                 
                 {/* Floating badge */}
-                <div className="absolute bottom-8 left-8 bg-black/80 backdrop-blur-md border border-gray-700 p-6 rounded-2xl z-20">
+                <a 
+                  href="https://www.google.com/maps/place/Modern+Auto+Garage/@42.9720511,-71.4550092,17z/data=!4m8!3m7!1s0x89e24fbe79ec9b61:0xd97a54de0fbdcf03!8m2!3d42.9720511!4d-71.4550092!9m1!1b1!16s%2Fg%2F11ydgt3mvg?hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-8 left-8 bg-black/80 backdrop-blur-md border border-gray-700 p-6 rounded-2xl z-20 hover:border-primary transition-colors group/badge"
+                >
                   <div className="flex items-center text-primary mb-2">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
                     ))}
                   </div>
-                  <p className="text-white font-bold text-lg font-heading">5-Star Rated Service</p>
+                  <p className="text-white font-bold text-lg font-heading group-hover/badge:text-primary transition-colors">5-Star Rated Service</p>
                   <p className="text-gray-400 text-sm">Trusted by Manchester locals</p>
-                </div>
+                </a>
             </div>
 
           </div>
@@ -239,7 +469,14 @@ export default function Home() {
                 <svg key={i} className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
               ))}
             </div>
-            <p className="text-grayCustom-text font-medium">4.9/5 Average rating on Google Reviews</p>
+            <a 
+              href="https://www.google.com/maps/place/Modern+Auto+Garage/@42.9720511,-71.4550092,17z/data=!4m8!3m7!1s0x89e24fbe79ec9b61:0xd97a54de0fbdcf03!8m2!3d42.9720511!4d-71.4550092!9m1!1b1!16s%2Fg%2F11ydgt3mvg?hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-grayCustom-text font-medium hover:text-primary transition-colors cursor-pointer"
+            >
+              4.9/5 Average rating on Google Reviews
+            </a>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -264,13 +501,16 @@ export default function Home() {
                 <Quote className="absolute -top-4 -right-4 w-24 h-24 text-gray-50 opacity-60 rotate-12 group-hover:scale-110 group-hover:text-gray-100 transition-all duration-500" />
                 
                 <div className="flex flex-col mb-6 relative z-10 flex-grow">
-                   <div className="flex items-center space-x-1 mb-4 text-yellow-400">
-                     {[...Array(5)].map((_, i) => (
-                       <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
-                     ))}
+                   <div className="flex justify-between items-start mb-4">
+                     <Quote className="w-10 h-10 text-primary/20" />
+                     <div className="flex items-center space-x-1 text-yellow-400">
+                       {[...Array(5)].map((_, i) => (
+                         <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+                       ))}
+                     </div>
                    </div>
                    <p className="text-gray-700 font-medium leading-relaxed italic text-lg">
-                     "{review.text}"
+                     {review.text}
                    </p>
                 </div>
                 
@@ -288,7 +528,12 @@ export default function Home() {
           </div>
           
           <div className="text-center mt-4">
-            <a href="#" className="inline-flex items-center justify-center bg-black text-white font-bold hover:bg-gray-900 transition-all shadow-lg hover:shadow-xl px-8 py-4 rounded-xl text-lg w-fit group">
+            <a 
+              href="https://www.google.com/maps/place/Modern+Auto+Garage/@42.9720511,-71.4550092,17z/data=!4m8!3m7!1s0x89e24fbe79ec9b61:0xd97a54de0fbdcf03!8m2!3d42.9720511!4d-71.4550092!9m1!1b1!16s%2Fg%2F11ydgt3mvg?hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-black text-white font-bold hover:bg-gray-900 transition-all shadow-lg hover:shadow-xl px-8 py-4 rounded-xl text-lg w-fit group"
+            >
               Read All Reviews
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
@@ -325,6 +570,100 @@ export default function Home() {
                 </p>
               </details>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* LOCATION / MAP SECTION */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Our Location</h2>
+            <h3 className="text-4xl md:text-5xl font-heading font-bold text-black mb-6">Visit Our Shop</h3>
+            <p className="text-lg text-grayCustom-text max-w-2xl mx-auto">
+              Conveniently located in Manchester, NH. We offer local shuttle services and a comfortable waiting area.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 items-stretch">
+            {/* Contact Details Card */}
+            <div className="lg:col-span-1 space-y-6">
+              <div className="bg-grayCustom-light p-8 rounded-3xl border border-gray-100 h-full">
+                <div className="space-y-8">
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mr-4 flex-shrink-0 border border-gray-100">
+                      <MapPin className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1">Address</h4>
+                      <a 
+                        href="https://maps.app.goo.gl/oq3EQgKHqDzfaucn6" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-gray-600 hover:text-primary transition-colors"
+                      >
+                        34 S Beech St<br />Manchester, NH 03103
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mr-4 flex-shrink-0 border border-gray-100">
+                      <Phone className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1">Phone</h4>
+                      <a 
+                        href="tel:+16036224428" 
+                        className="text-gray-600 hover:text-primary transition-colors font-medium"
+                      >
+                        603-622-4428
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mr-4 flex-shrink-0 border border-gray-100">
+                      <Clock className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1">Hours</h4>
+                      <p className="text-gray-600">Mon - Sun: 9:00 AM - 10:00 PM</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-12 pt-8 border-t border-gray-200">
+                  <a 
+                    href="https://maps.app.goo.gl/oq3EQgKHqDzfaucn6" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-primary hover:bg-red-700 text-white py-4 rounded-xl font-bold flex items-center justify-center transition-all shadow-md group"
+                  >
+                    Get Directions
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Map */}
+            <div className="lg:col-span-2 rounded-3xl overflow-hidden min-h-[400px] shadow-xl border border-gray-200 relative group">
+               <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2919.2953790160595!2d-71.45500919999999!3d42.972051099999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e24fbe79ec9b61%3A0xd97a54de0fbdcf03!2sModern%20Auto%20Garage!5e0!3m2!1sen!2sin!4v1776451334322!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Modern Auto Garage Location"
+                className="filter contrast-110 saturate-120 grayscale-[0.1] group-hover:grayscale-0 transition-all duration-500"
+              ></iframe>
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-2 rounded-lg text-xs font-bold text-black border border-gray-200 shadow-sm pointer-events-none">
+                Interactive Map
+              </div>
+            </div>
           </div>
         </div>
       </section>

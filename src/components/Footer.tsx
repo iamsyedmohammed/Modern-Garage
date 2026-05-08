@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
@@ -50,7 +50,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 text-primary mr-3 flex-shrink-0 mt-1" />
-                <a href="https://maps.google.com/?cid=15670931166112632579" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://maps.app.goo.gl/oq3EQgKHqDzfaucn6" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                   34 S Beech St<br />
                   Manchester, NH 03103
                 </a>
@@ -62,6 +62,10 @@ export default function Footer() {
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
                 <a href="mailto:modernarllc@gmail.com" className="text-gray-400 hover:text-white transition-colors">modernarllc@gmail.com</a>
+              </li>
+              <li className="flex items-center">
+                <Clock className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                <span className="text-gray-400">Mon - Sun: 9:00 AM - 10:00 PM</span>
               </li>
               <li className="flex items-center pt-2">
                 <div className="flex space-x-4">
