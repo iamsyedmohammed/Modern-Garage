@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, Award, Users, Wrench as Tool, CalendarCheck, Search, FileText, CheckSquare } from "lucide-react";
+import { CheckCircle2, Award, Users, Wrench as Tool, CalendarCheck, Search, FileText, CheckSquare, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -73,35 +73,67 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-24 bg-grayCustom-light">
+      {/* Why Choose Us Section */}
+      <section className="py-24 bg-grayCustom-light relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white/50 -skew-x-12 translate-x-1/2 -z-10" />
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Core Values</h2>
-            <h3 className="text-3xl md:text-4xl font-heading font-bold text-black">Why We're Different</h3>
+          <div className="text-center mb-20">
+            <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Why Choose Us</h2>
+            <h3 className="text-4xl md:text-6xl font-heading font-black text-black mb-6">
+              The <span className="text-primary italic">Modern</span> Standard
+            </h3>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+              We've redefined auto repair in Manchester by focusing on the three things that matter most: Precision, Transparency, and You.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-grayCustom-border text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Award className="w-8 h-8 text-primary" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                title: "Certified Experts",
+                desc: "Our master technicians are ASE-certified and undergo continuous training to stay ahead of modern vehicle complexity.",
+                icon: Award,
+                number: "01"
+              },
+              {
+                title: "Digital Transparency",
+                desc: "We send digital inspection reports with photos and videos directly to your phone, so you see exactly what we see.",
+                icon: Search,
+                number: "02"
+              },
+              {
+                title: "Premium Equipment",
+                desc: "We invest in the same factory-level scanners and tools used by dealerships to ensure absolute repair accuracy.",
+                icon: Tool,
+                number: "03"
+              },
+              {
+                title: "Nationwide Warranty",
+                desc: "We stand by our quality with a comprehensive warranty that gives you peace of mind wherever you drive.",
+                icon: ShieldCheck,
+                number: "04"
+              }
+            ].map((item, i) => (
+              <div key={i} className={`group relative p-10 rounded-[2.5rem] bg-white border border-gray-100 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-3 transition-all duration-500 overflow-hidden`}>
+                {/* Decorative Number */}
+                <span className="absolute -top-4 -right-4 text-8xl font-black text-gray-100/50 transition-colors group-hover:text-gray-200/50 select-none">
+                  {item.number}
+                </span>
+
+                <div className={`w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-8 transition-all duration-500 relative z-10 group-hover:bg-primary group-hover:scale-110 shadow-sm`}>
+                  <item.icon className={`w-8 h-8 text-primary group-hover:text-white transition-colors duration-500`} />
+                </div>
+                
+                <div className="relative z-10">
+                  <h4 className="text-2xl font-heading font-bold text-black mb-4 group-hover:text-primary transition-colors duration-300">{item.title}</h4>
+                  <p className="text-gray-500 leading-relaxed font-medium">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
-              <h4 className="text-xl font-heading font-bold mb-4">Quality Parts</h4>
-              <p className="text-grayCustom-text">We source OEM or premium aftermarket parts to ensure your vehicle performs at its best and repairs last longer.</p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-grayCustom-border text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Tool className="w-8 h-8 text-primary" />
-              </div>
-              <h4 className="text-xl font-heading font-bold mb-4">Modern Equipment</h4>
-              <p className="text-grayCustom-text">Our facility is equipped with state-of-the-art diagnostic and alignment technology, allowing us to service newer vehicles accurately.</p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-grayCustom-border text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Users className="w-8 h-8 text-primary" />
-              </div>
-              <h4 className="text-xl font-heading font-bold mb-4">Customer First</h4>
-              <p className="text-grayCustom-text">We speak your language—explaining complex auto concepts plainly, and giving you total control over what services are performed.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -174,6 +206,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+
       {/* The Modern Guarantee */}
       <section className="py-24 bg-grayCustom-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -49,8 +49,8 @@ export default function Header() {
               </div>
             </div>
 
-            <Link href="/gallery" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Gallery</Link>
             <Link href="/about" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">About</Link>
+            <Link href="/gallery" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Gallery</Link>
             <Link href="/contact" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Contact</Link>
             
             <div className="flex items-center space-x-4 pl-4 border-l border-gray-800">
@@ -121,18 +121,18 @@ export default function Header() {
           </div>
 
           <Link 
-            href="/gallery" 
-            className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Gallery
-          </Link>
-          <Link 
             href="/about" 
             className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"
             onClick={() => setMobileMenuOpen(false)}
           >
             About
+          </Link>
+          <Link 
+            href="/gallery" 
+            className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Gallery
           </Link>
           <Link 
             href="/contact" 

@@ -128,8 +128,8 @@ export default function Home() {
 
       {/* BRANDS MARQUEE */}
       <div className="bg-white border-y border-gray-100 py-10 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 mb-6">
-          <p className="text-center text-sm font-bold text-primary uppercase tracking-[0.2em]">Expert Service for All Major Brands</p>
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-center text-primary font-bold tracking-wider uppercase mb-3">Expert Service for All Major Brands</h2>
         </div>
         <div className="relative flex">
           <div className="flex animate-marquee whitespace-nowrap items-center">
