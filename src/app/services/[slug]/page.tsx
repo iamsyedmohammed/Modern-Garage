@@ -2,6 +2,7 @@ import { servicesData } from "@/data/services";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { CheckCircle2, AlertTriangle, PenToolIcon as Tool, Phone } from "lucide-react";
 
 type Props = {
@@ -17,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${service.title} | Manchester NH`,
-    description: service.fullDesc.substring(0, 160),
+    title: service.metaTitle || `${service.title} | Manchester NH`,
+    description: service.metaDesc || service.fullDesc.substring(0, 160),
     keywords: [service.keyword, "auto repair Manchester NH"],
   };
 }
@@ -52,15 +53,41 @@ export default async function ServiceDetailsPage({ params }: Props) {
               "name": "Modern Auto Garage",
               "address": {
                 "@type": "PostalAddress",
+                "streetAddress": "30 S Beech St",
                 "addressLocality": "Manchester",
-                "addressRegion": "NH"
+                "addressRegion": "NH",
+                "postalCode": "03103"
               }
             },
-            "areaServed": "Manchester, NH",
+            "areaServed": service.locations?.map(loc => ({
+              "@type": "City",
+              "name": loc
+            })) || "Manchester, NH",
             "description": service.shortDesc
           })
         }}
       />
+
+      {/* FAQ Schema Markup */}
+      {service.faqs && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": service.faqs.map((faq: any) => ({
+                "@type": "Question",
+                "name": faq.question,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": faq.answer
+                }
+              }))
+            })
+          }}
+        />
+      )}
 
       {/* Hero Section */}
       <section className="bg-black py-20 border-b-4 border-primary">
@@ -82,6 +109,18 @@ export default async function ServiceDetailsPage({ params }: Props) {
             
             {/* Left Content */}
             <div className="lg:col-span-2 prose prose-lg max-w-none">
+              {service.image && (
+                <div className="relative w-full h-[400px] mb-12 rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                </div>
+              )}
               <h2 className="text-3xl font-heading font-bold text-black mb-6">About Our {service.title}</h2>
               <p className="text-grayCustom-text text-lg leading-relaxed mb-10">
                 {service.fullDesc}
@@ -113,11 +152,83 @@ export default async function ServiceDetailsPage({ params }: Props) {
                 </ul>
               </div>
 
-              <div className="mt-12">
-                <h3 className="text-2xl font-heading font-bold text-black mb-4">Why Choose Modern Auto Garage?</h3>
-                <p className="text-grayCustom-text">
-                  Our shop is fully equipped with advanced diagnostic tools and staffed by expert technicians. When you bring your vehicle to us for {service.title.toLowerCase()}, we provide total transparency, honest pricing, and high-quality parts to get you back on the road safely in Manchester.
-                </p>
+              <div className="mt-12 space-y-12">
+                {service.detailedSections?.map((section: any, index: number) => (
+                  <div key={index} className="border-l-4 border-primary pl-6 py-2">
+                    <h3 className="text-2xl font-heading font-bold text-black mb-4">{section.title}</h3>
+                    <div className="text-grayCustom-text text-lg leading-relaxed whitespace-pre-line">
+                      {section.content}
+                    </div>
+                  </div>
+                ))}
+
+                {!service.detailedSections && (
+                  <div className="mt-12">
+                    <h3 className="text-2xl font-heading font-bold text-black mb-4">Why Choose Modern Auto Garage?</h3>
+                    <p className="text-grayCustom-text">
+                      Our shop is fully equipped with advanced diagnostic tools and staffed by expert technicians. When you bring your vehicle to us for {service.title.toLowerCase()}, we provide total transparency, honest pricing, and high-quality parts to get you back on the road safely in Manchester.
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Vehicle Brands Section */}
+              {service.brands && (
+                <div className="mt-16 pt-16 border-t border-gray-200">
+                  <h3 className="text-2xl font-heading font-bold text-black mb-8 text-center">Vehicle Brands We Service</h3>
+                  <div className="flex flex-wrap justify-center gap-4">
+                    {service.brands.map((brand: string, i: number) => (
+                      <span key={i} className="px-6 py-3 bg-gray-100 rounded-full text-gray-800 font-semibold shadow-sm hover:bg-primary hover:text-white transition-colors cursor-default">
+                        {brand}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="text-center text-gray-500 mt-6 italic">And many more. We service all makes and models!</p>
+                </div>
+              )}
+
+              {/* Local SEO Section */}
+              {service.locations && (
+                <div className="mt-16 bg-gray-900 text-white p-10 rounded-2xl">
+                  <h3 className="text-2xl font-heading font-bold mb-6">Serving Southern New Hampshire</h3>
+                  <p className="text-gray-300 mb-8 text-lg">
+                    Modern Auto Garage is proud to be the trusted choice for {service.title.toLowerCase()} for drivers across Southern NH. We offer convenient scheduling and fast service for residents in:
+                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {service.locations.map((loc: string, i: number) => (
+                      <div key={i} className="flex items-center text-primary font-bold">
+                        <div className="w-2 h-2 bg-primary rounded-full mr-2" />
+                        {loc}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* FAQs Section */}
+              {service.faqs && (
+                <div className="mt-16">
+                  <h3 className="text-3xl font-heading font-bold text-black mb-10">Frequently Asked Questions</h3>
+                  <div className="space-y-6">
+                    {service.faqs.map((faq: any, i: number) => (
+                      <div key={i} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                        <h4 className="text-xl font-bold text-black mb-3">{faq.question}</h4>
+                        <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Internal Linking Section */}
+              <div className="mt-16 pt-12 border-t border-gray-200">
+                <h3 className="text-xl font-bold text-black mb-6">Explore Other Services</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Link href="/services/tire-services-manchester-nh" className="text-primary hover:underline font-medium">Tire Services</Link>
+                  <Link href="/services/brake-repair-manchester-nh" className="text-primary hover:underline font-medium">Brake Repair</Link>
+                  <Link href="/services/suspension-steering-repair-manchester-nh" className="text-primary hover:underline font-medium">Suspension Inspection</Link>
+                  <Link href="/" className="text-primary hover:underline font-medium">Home</Link>
+                </div>
               </div>
             </div>
 
@@ -125,9 +236,11 @@ export default async function ServiceDetailsPage({ params }: Props) {
             <div className="lg:col-span-1">
               <div className="sticky top-32">
                 <div className="bg-black text-white p-8 rounded-xl shadow-xl">
-                  <h3 className="text-2xl font-heading font-bold mb-4">Ready to fix your vehicle?</h3>
+                  <h3 className="text-2xl font-heading font-bold mb-4">
+                    {service.ctaTitle || "Ready to fix your vehicle?"}
+                  </h3>
                   <p className="text-gray-400 mb-8">
-                    Contact us today to schedule your {service.title.toLowerCase()}.
+                    {service.ctaDesc || `Contact us today to schedule your ${service.title.toLowerCase()}.`}
                   </p>
                   
                   <a href="tel:+16036224428" className="w-full bg-primary hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg flex items-center justify-center transition-colors mb-4">
