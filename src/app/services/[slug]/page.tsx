@@ -157,7 +157,12 @@ export default async function ServiceDetailsPage({ params }: Props) {
                   <div key={index} className="border-l-4 border-primary pl-6 py-2">
                     <h3 className="text-2xl font-heading font-bold text-black mb-4">{section.title}</h3>
                     <div className="text-grayCustom-text text-lg leading-relaxed whitespace-pre-line">
-                      {section.content}
+                      {section.content.split(/(\*\*.*?\*\*)/g).map((part: string, i: number) => {
+                        if (part.startsWith('**') && part.endsWith('**')) {
+                          return <strong key={i} className="text-black font-bold">{part.slice(2, -2)}</strong>;
+                        }
+                        return part;
+                      })}
                     </div>
                   </div>
                 ))}
@@ -190,8 +195,8 @@ export default async function ServiceDetailsPage({ params }: Props) {
               {/* Local SEO Section */}
               {service.locations && (
                 <div className="mt-16 bg-gray-900 text-white p-10 rounded-2xl">
-                  <h3 className="text-2xl font-heading font-bold mb-6">Serving Southern New Hampshire</h3>
-                  <p className="text-gray-300 mb-8 text-lg">
+                  <h3 className="text-2xl font-heading font-bold mb-6 text-white italic">Serving Southern New Hampshire</h3>
+                  <p className="text-gray-200 mb-8 text-lg">
                     Modern Auto Garage is proud to be the trusted choice for {service.title.toLowerCase()} for drivers across Southern NH. We offer convenient scheduling and fast service for residents in:
                   </p>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -236,10 +241,10 @@ export default async function ServiceDetailsPage({ params }: Props) {
             <div className="lg:col-span-1">
               <div className="sticky top-32">
                 <div className="bg-black text-white p-8 rounded-xl shadow-xl">
-                  <h3 className="text-2xl font-heading font-bold mb-4">
+                  <h3 className="text-2xl font-heading font-bold mb-4 text-white">
                     {service.ctaTitle || "Ready to fix your vehicle?"}
                   </h3>
-                  <p className="text-gray-400 mb-8">
+                  <p className="text-gray-200 mb-8">
                     {service.ctaDesc || `Contact us today to schedule your ${service.title.toLowerCase()}.`}
                   </p>
                   

@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Award, Users, Wrench as Tool, CalendarCheck, Search, FileText, CheckSquare, ShieldCheck } from "lucide-react";
+import StatsSection from "@/components/StatsSection";
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: "Learn about Modern Auto Garage, Manchester's premier auto repair shop. Honest service, experienced mechanics, and modern technology.",
+  title: "About Modern Auto Garage | Trusted Auto Repair in Manchester NH",
+  description: "Learn about Modern Auto Garage, a trusted auto repair shop in Manchester NH offering diagnostics, brake repair, maintenance, and transparent automotive service.",
 };
 
 export default function AboutPage() {
@@ -15,8 +16,8 @@ export default function AboutPage() {
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6">
             About <span className="text-primary italic">Modern Auto Garage</span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Providing Manchester, NH with honest, reliable, and high-tech automotive service.
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto font-medium">
+            Modern Auto Garage is a trusted <span className="text-primary">auto repair shop in Manchester, NH</span> specializing in diagnostics, brake repair, maintenance, and complete automotive service for Southern New Hampshire drivers.
           </p>
         </div>
       </section>
@@ -34,10 +35,10 @@ export default function AboutPage() {
               
               <div className="prose prose-lg text-gray-600 mb-10 border-l-4 border-primary pl-6">
                 <p className="mb-4">
-                  Modern Auto Garage was founded on a simple principle: combine the trust and honesty of a local neighborhood mechanic with the advanced technology and cleanliness of a modern dealership.
+                  Modern Auto Garage was founded on a simple principle: combine the trust and honesty of a local neighborhood mechanic with the advanced technology and cleanliness of a modern dealership. We understand that <span className="font-bold text-black">NH winter driving conditions</span> and road salt can be tough on your vehicle, which is why we specialize in preventative maintenance that keeps you on the road.
                 </p>
                 <p>
-                  Located right here in Manchester, NH, we've built our reputation by providing straightforward advice. If your car needs a repair to be safe, we'll tell you. If it can wait, we'll tell you that too. Our goal is not just to fix your car today, but to be your trusted automotive partner for life.
+                  Located right here in <Link href="/contact" className="text-primary font-bold hover:underline">Manchester, NH</Link>, we've built our reputation by providing straightforward advice. Whether you need a <Link href="/services/brake-repair-manchester-nh" className="text-primary font-bold hover:underline">brake repair</Link>, complex <Link href="/services/engine-diagnostics-manchester-nh" className="text-primary font-bold hover:underline">diagnostics</Link>, or a precise <Link href="/services/wheel-alignment-manchester-nh" className="text-primary font-bold hover:underline">wheel alignment</Link>, we'll tell you exactly what your car needs. Our goal is not just to fix your car today, but to be your trusted automotive partner for life.
                 </p>
               </div>
               
@@ -133,6 +134,77 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* COMMUNITY SECTION */}
+      <section className="py-24 bg-black text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Community Roots</h2>
+          <h3 className="text-4xl md:text-6xl font-heading font-black mb-8 text-white">Proudly Serving Manchester Since 2010</h3>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+            We are more than just a shop; we are part of the Manchester community. From local families and commuters to businesses and fleet customers, we've kept Southern New Hampshire moving for over a decade.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {["Manchester", "Bedford", "Hooksett", "Londonderry", "Nashua"].map((city, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl font-bold text-white hover:bg-white/20 transition-all">
+                {city}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* REVIEWS SNIPPETS */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Local Feedback</h2>
+            <h3 className="text-4xl font-heading font-bold text-black mb-6">Trusted by Your Neighbors</h3>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { text: "Best mechanic in Manchester. Seyed is honest and the technology they use is impressive. Saw the issues on my phone before approving the work.", author: "Mike T. from Bedford" },
+              { text: "Reliable service even in the middle of winter. They fixed my heat and did a full inspection. Very professional team.", author: "Sarah L. from Manchester" },
+              { text: "Fair prices and great communication. I recommend Modern Auto Garage to everyone I know in Southern NH.", author: "James R. from Hooksett" }
+            ].map((review, i) => (
+              <div key={i} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm relative italic">
+                <p className="text-gray-600 mb-6 leading-relaxed">"{review.text}"</p>
+                <div className="font-bold text-black">— {review.author}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ SECTION */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Common Questions</h2>
+            <h3 className="text-4xl font-heading font-bold text-black mb-6">About Our Service</h3>
+          </div>
+          <div className="space-y-4">
+            {[
+              { q: "How long has Modern Auto Garage been in business?", a: "We have been proudly serving the Manchester community since 2010, building a reputation for honesty and technical excellence." },
+              { q: "Are your technicians ASE-certified?", a: "Yes, our lead mechanics are ASE-certified master technicians who undergo continuous training to handle the latest vehicle technology." },
+              { q: "Do you offer warranties on your work?", a: "Absolutely. We offer a comprehensive nationwide warranty on most repairs, typically covering 24 months or 24,000 miles." },
+              { q: "Do you service foreign and luxury vehicles?", a: "Yes, we service all makes and models, including high-end European and Japanese vehicles, using factory-level diagnostic tools." }
+            ].map((faq, i) => (
+              <details key={i} className="group bg-grayCustom-light rounded-2xl border border-gray-100 [&_summary::-webkit-details-marker]:hidden open:shadow-md transition-all duration-300">
+                <summary className="flex cursor-pointer items-center justify-between gap-1.5 p-6 font-bold text-lg text-gray-900 transition-all">
+                  {faq.q}
+                  <div className="w-6 h-6 text-primary transition-transform duration-300 group-open:rotate-180 flex items-center justify-center font-black">↓</div>
+                </summary>
+                <p className="px-6 pb-6 pt-2 text-gray-700 leading-relaxed">
+                  {faq.a}
+                </p>
+              </details>
             ))}
           </div>
         </div>

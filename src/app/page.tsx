@@ -11,6 +11,8 @@ import {
   Stethoscope, Info
 } from "lucide-react";
 
+import StatsSection from "@/components/StatsSection";
+
 export default function Home() {
   const [activeSymptom, setActiveSymptom] = useState(0);
 
@@ -19,31 +21,36 @@ export default function Home() {
       title: "Squeaky Brakes", 
       icon: Disc, 
       desc: "High-pitched squealing or grinding noises often indicate worn brake pads or rotor issues. Ignoring these sounds can lead to more expensive repairs and reduced stopping power.",
-      fix: "Brake Pad Replacement / Rotor Resurfacing"
+      fix: "Brake Pad Replacement / Rotor Resurfacing",
+      url: "/services/brake-repair-manchester-nh"
     },
     { 
       title: "Check Engine Light", 
       icon: AlertCircle, 
       desc: "A glowing engine icon could mean anything from a loose gas cap to a serious engine fault. Our factory-level scanners pinpoint the exact error code to save you time and money.",
-      fix: "Computerized Diagnostics"
+      fix: "Computerized Diagnostics",
+      url: "/services/check-engine-light-diagnostics-manchester-nh"
     },
     { 
       title: "Slow Engine Crank", 
       icon: BatteryCharging, 
       desc: "If your engine struggles to turn over or your headlights seem dim, your battery is likely failing or your alternator isn't charging correctly. We test both systems.",
-      fix: "Battery Replacement / Alternator Repair"
+      fix: "Battery Replacement / Alternator Repair",
+      url: "/services/battery-replacement-manchester-nh"
     },
     { 
       title: "Steering Vibration", 
       icon: MoveHorizontal, 
       desc: "Shaking in the steering wheel at high speeds usually points to tire imbalance or alignment issues, while low-speed vibrations can indicate suspension wear.",
-      fix: "Wheel Alignment & Balancing"
+      fix: "Wheel Alignment & Balancing",
+      url: "/services/wheel-alignment-manchester-nh"
     },
     { 
       title: "Fluid Leaks", 
       icon: Droplet, 
       desc: "Bright green, red, or dark brown puddles under your vehicle are signs of cooling, transmission, or oil leaks. Catching these early prevents engine overheating and failure.",
-      fix: "Leak Detection & Seal Repair"
+      fix: "Leak Detection & Seal Repair",
+      url: "/services/oil-change-maintenance-manchester-nh"
     }
   ];
 
@@ -111,7 +118,7 @@ export default function Home() {
               <span className="text-primary italic">Repair & Service</span>
             </h1>
             <p className="text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed">
-              Expert diagnostics, trusted repairs, and routine maintenance. From brakes and custom exhausts to complete engine overhauls.
+              Expert <Link href="/services/engine-diagnostics-manchester-nh" className="text-primary hover:underline font-bold">diagnostics</Link>, trusted repairs, and routine maintenance. From <Link href="/services/brake-repair-manchester-nh" className="text-primary hover:underline font-bold">brakes</Link> and <Link href="/services/exhaust-repair-manchester-nh" className="text-primary hover:underline font-bold">custom exhausts</Link> to complete engine overhauls.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="tel:+16036224428" className="bg-primary hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-wide flex items-center justify-center transition-transform hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(225,6,0,0.4)]">
@@ -211,134 +218,75 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-black/5 border border-gray-100 overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
-            {/* Sidebar: Symptom Selection */}
-            <div className="lg:w-[380px] bg-gray-50/50 p-8 border-r border-gray-100">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 px-2">Common Symptoms</p>
-              <div className="space-y-2">
-                {symptoms.map((symptom, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveSymptom(i)}
-                    className={`w-full flex items-center p-4 rounded-2xl transition-all text-left group relative ${
-                      activeSymptom === i 
-                      ? "bg-white shadow-md ring-1 ring-black/5" 
-                      : "hover:bg-white/50"
-                    }`}
-                  >
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center mr-4 transition-all ${
-                      activeSymptom === i ? "bg-primary text-white scale-110 shadow-lg shadow-primary/20" : "bg-gray-100 text-gray-400 group-hover:text-primary"
-                    }`}>
-                      <symptom.icon className="w-5 h-5" />
-                    </div>
-                    <span className={`font-bold transition-colors ${
-                      activeSymptom === i ? "text-black" : "text-gray-500 group-hover:text-black"
-                    }`}>
-                      {symptom.title}
-                    </span>
-                    {activeSymptom === i && (
-                      <div className="absolute right-4 w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                    )}
-                  </button>
-                ))}
-              </div>
-              
-              <div className="mt-12 p-6 bg-primary/5 rounded-2xl border border-primary/10">
-                <p className="text-sm text-primary font-bold mb-2 flex items-center">
-                  <AlertCircle className="w-4 h-4 mr-2" /> Not seeing your issue?
-                </p>
-                <p className="text-xs text-gray-600 leading-relaxed mb-4">Our master technicians can diagnose any issue, no matter how complex or rare.</p>
-                <a href="tel:+16036224428" className="text-sm font-bold text-black hover:text-primary transition-colors flex items-center">
-                  Call for Expert Help <ArrowRight className="ml-2 w-4 h-4" />
-                </a>
-              </div>
+          <div className="bg-white rounded-[3rem] shadow-xl border border-gray-100 p-8 md:p-12">
+            {/* Horizontal Symptom Selection */}
+            <div className="flex flex-wrap justify-center gap-4 mb-16">
+              {symptoms.map((symptom, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveSymptom(i)}
+                  className={`flex flex-col items-center p-6 rounded-2xl transition-all duration-300 min-w-[120px] ${
+                    activeSymptom === i 
+                    ? "bg-primary text-white shadow-lg shadow-primary/30 scale-105" 
+                    : "bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-primary"
+                  }`}
+                >
+                  <symptom.icon className="w-8 h-8 mb-3" />
+                  <span className="text-xs font-bold uppercase tracking-wider">{symptom.title.split(' ')[0]}</span>
+                </button>
+              ))}
             </div>
 
-            {/* Main Content: Diagnostic Report */}
-            <div className="flex-1 p-8 md:p-12 lg:p-16 flex flex-col relative bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-gray-50/50 via-white to-white">
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
-                <div className="flex items-center">
-                  <div className="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-primary mr-6 border border-gray-100">
-                    {(() => {
-                      const Icon = symptoms[activeSymptom].icon;
-                      return <Icon className="w-8 h-8" />;
-                    })()}
-                  </div>
-                  <div>
-                    <h4 className="text-3xl font-heading font-bold text-black">{symptoms[activeSymptom].title}</h4>
-                    <div className="flex items-center mt-1">
-                      <span className="w-2 h-2 rounded-full bg-primary animate-ping mr-2" />
-                      <span className="text-primary font-bold text-xs uppercase tracking-widest">Active Analysis</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex gap-3">
-                  <div className="px-4 py-2 bg-gray-100 rounded-lg text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">
-                    Repair Urgency<br/>
-                    <span className="text-black text-xs">High</span>
-                  </div>
-                  <div className="px-4 py-2 bg-gray-100 rounded-lg text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">
-                    Complexity<br/>
-                    <span className="text-black text-xs">Moderate</span>
-                  </div>
-                </div>
+            {/* Diagnostic Content */}
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-50 rounded-full mb-8 border border-gray-100">
+                {(() => {
+                  const Icon = symptoms[activeSymptom].icon;
+                  return <Icon className="w-10 h-10 text-primary" />;
+                })()}
               </div>
+              
+              <h4 className="text-3xl md:text-4xl font-heading font-bold text-black mb-6">
+                {symptoms[activeSymptom].title}
+              </h4>
+              
+              <p className="text-gray-600 text-xl leading-relaxed mb-12">
+                {symptoms[activeSymptom].desc}
+              </p>
 
-              <div className="grid md:grid-cols-5 gap-12 items-start">
-                <div className="md:col-span-3 space-y-8">
-                  <div>
-                    <h5 className="text-sm font-bold text-black uppercase tracking-widest mb-4 flex items-center">
-                      <Info className="w-4 h-4 mr-2 text-primary" />
-                      Technical Explanation
-                    </h5>
-                    <p className="text-gray-600 text-lg leading-relaxed font-medium">
-                      {symptoms[activeSymptom].desc}
-                    </p>
-                  </div>
-
-                  <div className="p-8 bg-black rounded-[2rem] text-white shadow-2xl relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
-                       <Settings className="w-32 h-32 rotate-12" />
-                    </div>
-                    <div className="relative z-10">
-                      <p className="text-primary font-bold text-xs uppercase tracking-[0.2em] mb-3">Professional Resolution</p>
-                      <h6 className="text-2xl font-heading font-bold mb-6 text-white">{symptoms[activeSymptom].fix}</h6>
-                      <Link 
-                        href="/book-appointment" 
-                        className="inline-flex items-center justify-center bg-primary hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/40 active:scale-95"
-                      >
-                        Schedule Diagnostic
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="md:col-span-2 space-y-6">
-                   <div className="p-6 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                      <h5 className="font-bold text-black mb-4 flex items-center text-sm">
-                        <CheckCircle2 className="w-4 h-4 mr-2 text-green-500" />
-                        What We Check
-                      </h5>
-                      <ul className="space-y-3">
-                        {["Computerized Scanning", "Physical Component Stress Test", "Fluid Integrity Check", "Safety Verification"].map((check, i) => (
-                          <li key={i} className="text-xs text-gray-500 flex items-center">
-                            <div className="w-1 h-1 rounded-full bg-gray-300 mr-2" />
-                            {check}
-                          </li>
-                        ))}
-                      </ul>
-                   </div>
-
-                   <div className="p-6 bg-gray-900 rounded-2xl border border-gray-800">
-                      <p className="text-xs text-gray-400 mb-1">Estimated Diagnostic Time</p>
-                      <p className="text-lg font-bold text-white">45 - 60 Minutes</p>
-                   </div>
+              <div className="p-10 bg-gray-50 rounded-[2.5rem] border border-gray-100 inline-block w-full">
+                <p className="text-primary font-bold text-xs uppercase tracking-[0.2em] mb-4">Professional Resolution</p>
+                <h6 className="text-2xl font-heading font-bold mb-8 text-black">{symptoms[activeSymptom].fix}</h6>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link 
+                    href={symptoms[activeSymptom].url} 
+                    className="inline-flex items-center justify-center bg-white border border-gray-200 text-black hover:bg-gray-50 px-10 py-4 rounded-xl font-bold transition-all shadow-sm"
+                  >
+                    Learn More
+                  </Link>
+                  <Link 
+                    href="/book-appointment" 
+                    className="inline-flex items-center justify-center bg-primary hover:bg-red-700 text-white px-10 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/40"
+                  >
+                    Schedule Service
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* STATS SECTION */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Our Track Record</h2>
+            <h3 className="text-4xl md:text-5xl font-heading font-bold text-black">Proven Results in Manchester</h3>
+          </div>
+          <StatsSection />
         </div>
       </section>
 
@@ -352,7 +300,7 @@ export default function Home() {
               <h2 className="text-primary font-bold tracking-wider uppercase mb-3">The Modern Difference</h2>
               <h3 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6">Honest repairs.<br/>Modern technology.</h3>
               <p className="text-xl text-gray-400 mb-12 leading-relaxed">
-                As a locally owned business in Manchester, NH, we believe that transparency, quality, and modern efficiency shouldn't be luxury upgrades. 
+                As a <Link href="/about" className="text-primary hover:underline font-bold">locally owned business</Link> in Manchester, NH, we believe that transparency, quality, and modern efficiency shouldn't be luxury upgrades. 
               </p>
               
               <div className="space-y-6">
@@ -486,17 +434,20 @@ export default function Home() {
               {
                 text: "Fantastic service! My check engine light was on, and they correctly diagnosed a bad O2 sensor. Fixed it the same day, highly recommend their transparency.",
                 name: "Sarah M.",
-                service: "Engine Diagnostics"
+                service: "Engine Diagnostics",
+                url: "/services/engine-diagnostics-manchester-nh"
               },
               {
                 text: "Honest pricing and excellent work on my brakes. I originally thought I needed completely new rotors but they were able to turn them and save me a ton of money.",
                 name: "David H.",
-                service: "Brake Repair"
+                service: "Brake Repair",
+                url: "/services/brake-repair-manchester-nh"
               },
               {
                 text: "Brought my truck in for new tires and an alignment. The team is friendly and straightforward. Found my new long-term mechanic here in Manchester.",
                 name: "Michael R.",
-                service: "Tire & Alignment"
+                service: "Tire & Alignment",
+                url: "/services/tire-services-manchester-nh"
               }
             ].map((review, i) => (
               <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-transparent hover:border-gray-100 flex flex-col relative overflow-hidden group">
@@ -522,7 +473,9 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col">
                     <span className="font-bold text-gray-900">{review.name}</span>
-                    <span className="text-xs text-primary font-bold uppercase tracking-wider">{review.service}</span>
+                    <Link href={review.url} className="text-xs text-primary font-bold uppercase tracking-wider hover:underline">
+                      {review.service}
+                    </Link>
                   </div>
                 </div>
               </div>
