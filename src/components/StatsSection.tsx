@@ -35,16 +35,16 @@ export default function StatsSection() {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
       {stats.map((stat, i) => (
-        <div key={i} className="text-center p-8 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
-          <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
+        <div key={i} className="text-center p-6 sm:p-8 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
+          <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
             <stat.icon className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
           </div>
-          <div className="text-4xl font-black text-black mb-2">
+          <div className="text-3xl sm:text-4xl font-black text-black mb-1 sm:mb-2">
             <StatCounter end={stat.value} suffix={stat.suffix} decimals={stat.decimals} />
           </div>
-          <div className="text-sm font-bold text-gray-500 uppercase tracking-widest">{stat.label}</div>
+          <div className="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-widest">{stat.label}</div>
         </div>
       ))}
     </div>

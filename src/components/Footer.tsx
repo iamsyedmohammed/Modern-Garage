@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/studio")) return null;
+
   return (
     <footer className="bg-black text-grayCustom-light pt-16 pb-8 border-t-[4px] border-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,6 +36,8 @@ export default function Footer() {
             <h3 className="font-heading font-bold text-white text-xl mb-6">Quick Links</h3>
             <ul className="space-y-3">
               <li><Link href="/" className="text-gray-400 hover:text-primary transition-colors">Home</Link></li>
+              <li><Link href="/inventory" className="text-gray-400 hover:text-primary transition-colors">Cars for Sale</Link></li>
+              <li><Link href="/rentals" className="text-gray-400 hover:text-primary transition-colors">Car Rentals</Link></li>
               <li><Link href="/about" className="text-gray-400 hover:text-primary transition-colors">About Us</Link></li>
               <li><Link href="/services" className="text-gray-400 hover:text-primary transition-colors">All Services</Link></li>
               <li><Link href="/book-appointment" className="text-gray-400 hover:text-primary transition-colors">Book Appointment</Link></li>

@@ -1,78 +1,34 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
-  Wrench, ShieldCheck, Clock, Settings, Zap, 
-  MapPin, Phone, Mail, ArrowRight, CheckCircle2,
-  Car, Activity, Disc, Battery, Settings2,
-  Droplet, CircleDashed, MoveHorizontal, AlertCircle, BatteryCharging, Wind, Quote, ChevronDown,
-  Stethoscope, Info
+  Disc, Activity, Droplet, CircleDashed, MoveHorizontal, AlertCircle, BatteryCharging, Wind, Phone, ArrowRight, CheckCircle2, ChevronDown, MapPin, Clock, Quote
 } from "lucide-react";
 
 import StatsSection from "@/components/StatsSection";
+import SymptomChecker from "@/components/SymptomChecker";
+import FeaturedInventory from "@/components/FeaturedInventory";
+
+const brands = [
+  { name: "Audi", src: "/brands/audi-logo.png" },
+  { name: "BMW", src: "/brands/bmw-logo.png" },
+  { name: "Chevrolet", src: "/brands/chevrolet-logo.png" },
+  { name: "Fiat", src: "/brands/fiat-logo.png" },
+  { name: "Ford", src: "/brands/ford-logo.png" },
+  { name: "Honda", src: "/brands/honda-logo.png" },
+  { name: "Hyundai", src: "/brands/hyundai-logo.png" },
+  {name: "Jeep", src: "/brands/jeep-logo.png" },
+  { name: "Kia", src: "/brands/kia-logo.png" },
+  { name: "Lexus", src: "/brands/lexus-logo.png" },
+  { name: "Mercedes-Benz", src: "/brands/mercedes-benz-logo.png" },
+  { name: "Mitsubishi", src: "/brands/mitsubishi-logo.png" },
+  { name: "Nissan", src: "/brands/nissan-logo.png" },
+  { name: "Subaru", src: "/brands/subaru-logo.png" },
+  { name: "Toyota", src: "/brands/toyota-logo.png" },
+  { name: "Volkswagen", src: "/brands/volkswagen-logo.png" },
+  { name: "Volvo", src: "/brands/volvo-logo.png" },
+];
 
 export default function Home() {
-  const [activeSymptom, setActiveSymptom] = useState(0);
-
-  const symptoms = [
-    { 
-      title: "Squeaky Brakes", 
-      icon: Disc, 
-      desc: "High-pitched squealing or grinding noises often indicate worn brake pads or rotor issues. Ignoring these sounds can lead to more expensive repairs and reduced stopping power.",
-      fix: "Brake Pad Replacement / Rotor Resurfacing",
-      url: "/services/brake-repair-manchester-nh"
-    },
-    { 
-      title: "Check Engine Light", 
-      icon: AlertCircle, 
-      desc: "A glowing engine icon could mean anything from a loose gas cap to a serious engine fault. Our factory-level scanners pinpoint the exact error code to save you time and money.",
-      fix: "Computerized Diagnostics",
-      url: "/services/check-engine-light-diagnostics-manchester-nh"
-    },
-    { 
-      title: "Slow Engine Crank", 
-      icon: BatteryCharging, 
-      desc: "If your engine struggles to turn over or your headlights seem dim, your battery is likely failing or your alternator isn't charging correctly. We test both systems.",
-      fix: "Battery Replacement / Alternator Repair",
-      url: "/services/battery-replacement-manchester-nh"
-    },
-    { 
-      title: "Steering Vibration", 
-      icon: MoveHorizontal, 
-      desc: "Shaking in the steering wheel at high speeds usually points to tire imbalance or alignment issues, while low-speed vibrations can indicate suspension wear.",
-      fix: "Wheel Alignment & Balancing",
-      url: "/services/wheel-alignment-manchester-nh"
-    },
-    { 
-      title: "Fluid Leaks", 
-      icon: Droplet, 
-      desc: "Bright green, red, or dark brown puddles under your vehicle are signs of cooling, transmission, or oil leaks. Catching these early prevents engine overheating and failure.",
-      fix: "Leak Detection & Seal Repair",
-      url: "/services/oil-change-maintenance-manchester-nh"
-    }
-  ];
-
-  const brands = [
-    { name: "Audi", src: "/brands/audi-logo.png" },
-    { name: "BMW", src: "/brands/bmw-logo.png" },
-    { name: "Chevrolet", src: "/brands/chevrolet-logo.png" },
-    { name: "Fiat", src: "/brands/fiat-logo.png" },
-    { name: "Ford", src: "/brands/ford-logo.png" },
-    { name: "Honda", src: "/brands/honda-logo.png" },
-    { name: "Hyundai", src: "/brands/hyundai-logo.png" },
-    {name: "Jeep", src: "/brands/jeep-logo.png" },
-    { name: "Kia", src: "/brands/kia-logo.png" },
-    { name: "Lexus", src: "/brands/lexus-logo.png" },
-    { name: "Mercedes-Benz", src: "/brands/mercedes-benz-logo.png" },
-    { name: "Mitsubishi", src: "/brands/mitsubishi-logo.png" },
-    { name: "Nissan", src: "/brands/nissan-logo.png" },
-    { name: "Subaru", src: "/brands/subaru-logo.png" },
-    { name: "Toyota", src: "/brands/toyota-logo.png" },
-    { name: "Volkswagen", src: "/brands/volkswagen-logo.png" },
-    { name: "Volvo", src: "/brands/volvo-logo.png" },
-  ];
   return (
     <>
       <script
@@ -204,87 +160,147 @@ export default function Home() {
         </div>
       </section>
 
-      {/* DIAGNOSTIC TOOL */}
-      <section className="py-24 bg-gray-50">
+      {/* VEHICLE SALES & RENTALS SECTION */}
+      <section id="sales-rentals-showcase-section" className="py-20 bg-gray-50/50">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Service",
+                  "name": "Quality Used Car Sales",
+                  "description": "Browse our curated selection of high-quality, pre-owned vehicles. Every car goes through a rigorous 150-point inspection by our certified mechanics to ensure safety and reliability.",
+                  "provider": {
+                    "@type": "AutoDealer",
+                    "name": "Modern Auto Garage",
+                    "telephone": "603-622-4428",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "streetAddress": "34 S Beech St",
+                      "addressLocality": "Manchester",
+                      "addressRegion": "NH",
+                      "postalCode": "03103",
+                      "addressCountry": "US"
+                    }
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "name": "Premium Car Rentals",
+                  "description": "Flexible daily & weekly car rental service offering clean, deeply sanitized, and well-maintained vehicles in Manchester, NH.",
+                  "provider": {
+                    "@type": "AutoRental",
+                    "name": "Modern Auto Garage",
+                    "telephone": "603-622-4428",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "streetAddress": "34 S Beech St",
+                      "addressLocality": "Manchester",
+                      "addressRegion": "NH",
+                      "postalCode": "03103",
+                      "addressCountry": "US"
+                    }
+                  }
+                }
+              ]
+            })
+          }}
+        />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-1.5 bg-primary/10 text-primary font-bold rounded-full mb-4">
-              <Stethoscope className="w-4 h-4 mr-2" />
-              Digital Diagnostic Tool
-            </div>
-            <h3 className="text-4xl md:text-5xl font-heading font-bold text-black mb-6">Self-Service Symptom Checker</h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Select what your vehicle is experiencing for an instant preliminary diagnosis and recommended next steps.
+            <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Vehicles</h2>
+            <h3 className="text-4xl md:text-5xl font-heading font-bold text-black mb-6">Drive Your Way</h3>
+            <p className="text-lg text-grayCustom-text max-w-2xl mx-auto">
+              Whether you are looking to purchase a reliable pre-owned vehicle or rent one for your next trip, we have you covered.
             </p>
           </div>
 
-          <div className="bg-white rounded-[3rem] shadow-xl border border-gray-100 p-8 md:p-12">
-            {/* Horizontal Symptom Selection */}
-            <div className="flex flex-wrap justify-center gap-4 mb-16">
-              {symptoms.map((symptom, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveSymptom(i)}
-                  className={`flex flex-col items-center p-6 rounded-2xl transition-all duration-300 min-w-[120px] ${
-                    activeSymptom === i 
-                    ? "bg-primary text-white shadow-lg shadow-primary/30 scale-105" 
-                    : "bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-primary"
-                  }`}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Sales Card */}
+            <div className="relative group bg-white border border-gray-200 rounded-[2.5rem] p-8 md:p-12 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[400px]">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+              <div className="relative z-10">
+                <span className="text-xs font-bold text-primary bg-primary/10 uppercase inline-block mb-6 px-4 py-1.5 rounded-full tracking-wider">
+                  For Sale
+                </span>
+                <h4 className="text-3xl font-heading font-black text-black mb-4 group-hover:text-primary transition-colors">
+                  Quality Used Cars
+                </h4>
+                <p className="text-grayCustom-text leading-relaxed mb-6 font-medium">
+                  Browse our curated selection of high-quality, pre-owned vehicles in Manchester, NH. Every car goes through a rigorous 150-point inspection by our <Link href="/services" className="text-primary hover:underline font-bold">certified mechanics</Link> to ensure safety and reliability.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {["Rigorous 150-point inspection", "Clean title guarantee", "Transparent local pricing"].map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-2.5 text-sm text-grayCustom-darkText font-bold">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="relative z-10 mt-auto">
+                <Link 
+                  id="home-explore-sales-btn"
+                  href="/inventory"
+                  className="flex items-center justify-center gap-2 bg-black text-white hover:bg-primary py-4 rounded-xl font-bold transition-all w-full md:w-fit md:px-8 group-hover:scale-[1.01]"
                 >
-                  <symptom.icon className="w-8 h-8 mb-3" />
-                  <span className="text-xs font-bold uppercase tracking-wider">{symptom.title.split(' ')[0]}</span>
-                </button>
-              ))}
+                  <span>Explore Sales Inventory</span>
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
             </div>
 
-            {/* Diagnostic Content */}
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-50 rounded-full mb-8 border border-gray-100">
-                {(() => {
-                  const Icon = symptoms[activeSymptom].icon;
-                  return <Icon className="w-10 h-10 text-primary" />;
-                })()}
+            {/* Rental Card */}
+            <div className="relative group bg-black text-white border border-gray-800 rounded-[2.5rem] p-8 md:p-12 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[400px]">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-primary/20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+              <div className="relative z-10">
+                <span className="text-xs font-bold text-primary bg-primary/20 uppercase inline-block mb-6 px-4 py-1.5 rounded-full tracking-wider">
+                  For Rent
+                </span>
+                <h4 className="text-3xl font-heading font-black text-white mb-4 group-hover:text-primary transition-colors">
+                  Premium Rental Fleet
+                </h4>
+                <p className="text-gray-400 leading-relaxed mb-6 font-medium">
+                  Need a clean, dependable ride in Manchester, NH? Our flexible car rental service offers premium, well-maintained vehicles. Perfect for local travel, business trips, or temporary replacement cars. <Link href="/contact" className="text-primary hover:underline font-bold">Contact us</Link> to reserve your vehicle today.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {["Deeply sanitized & detailed", "Flexible daily & weekly rates", "Fully fueled and ready to go"].map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-2.5 text-sm text-gray-300 font-bold">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              
-              <h4 className="text-3xl md:text-4xl font-heading font-bold text-black mb-6">
-                {symptoms[activeSymptom].title}
-              </h4>
-              
-              <p className="text-gray-600 text-xl leading-relaxed mb-12">
-                {symptoms[activeSymptom].desc}
-              </p>
-
-              <div className="p-10 bg-gray-50 rounded-[2.5rem] border border-gray-100 inline-block w-full">
-                <p className="text-primary font-bold text-xs uppercase tracking-[0.2em] mb-4">Professional Resolution</p>
-                <h6 className="text-2xl font-heading font-bold mb-8 text-black">{symptoms[activeSymptom].fix}</h6>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link 
-                    href={symptoms[activeSymptom].url} 
-                    className="inline-flex items-center justify-center bg-white border border-gray-200 text-black hover:bg-gray-50 px-10 py-4 rounded-xl font-bold transition-all shadow-sm"
-                  >
-                    Learn More
-                  </Link>
-                  <Link 
-                    href="/book-appointment" 
-                    className="inline-flex items-center justify-center bg-primary hover:bg-red-700 text-white px-10 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/40"
-                  >
-                    Schedule Service
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </div>
+              <div className="relative z-10 mt-auto">
+                <Link 
+                  id="home-browse-rentals-btn"
+                  href="/rentals"
+                  className="flex items-center justify-center gap-2 bg-primary hover:bg-red-700 text-white py-4 rounded-xl font-bold transition-all w-full md:w-fit md:px-8 group-hover:scale-[1.01]"
+                >
+                  <span>Browse Rental Fleet</span>
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* FEATURED INVENTORY */}
+      <FeaturedInventory />
+
+      {/* DIAGNOSTIC TOOL */}
+      <SymptomChecker />
+
       {/* STATS SECTION */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 md:mb-16">
             <h2 className="text-primary font-bold tracking-wider uppercase mb-3">Our Track Record</h2>
-            <h3 className="text-4xl md:text-5xl font-heading font-bold text-black">Proven Results in Manchester</h3>
+            <h3 className="text-3xl md:text-5xl font-heading font-bold text-black">Proven Results in Manchester</h3>
           </div>
           <StatsSection />
         </div>
@@ -385,8 +401,6 @@ export default function Home() {
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-colors duration-500 z-0" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                 
-
-
                 <div className="absolute inset-x-0 bottom-0 p-8 z-30 flex flex-col justify-end">
                   <span className="text-xs font-bold text-white bg-primary uppercase inline-block mb-3 px-4 py-1.5 rounded-full w-fit shadow-md tracking-wider">
                     {item.tag}

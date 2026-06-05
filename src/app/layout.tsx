@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import PageTransitionWrapper from "@/components/PageTransitionWrapper";
+import PagePaddingWrapper from "@/components/PagePaddingWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -55,12 +56,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col pt-[84px] sm:pt-[96px]">
+      <body className="min-h-full flex flex-col">
         <PageTransitionWrapper />
         <Header />
-        <main className="flex-grow">
-          {children}
-        </main>
+        <PagePaddingWrapper>
+          <main className="flex-grow">
+            {children}
+          </main>
+        </PagePaddingWrapper>
         <FloatingWhatsApp />
         <Footer />
       </body>

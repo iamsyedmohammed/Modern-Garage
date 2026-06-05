@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle2, AlertTriangle, PenToolIcon as Tool, Phone } from "lucide-react";
+import { CheckCircle2, AlertTriangle, PenToolIcon as Tool, Phone, ChevronDown } from "lucide-react";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -37,6 +37,10 @@ export default async function ServiceDetailsPage({ params }: Props) {
   if (!service) {
     notFound();
   }
+
+  const otherServices = servicesData
+    .filter((s) => s.slug !== resolvedParams.slug)
+    .slice(0, 3);
 
   return (
     <>
@@ -214,12 +218,17 @@ export default async function ServiceDetailsPage({ params }: Props) {
               {service.faqs && (
                 <div className="mt-16">
                   <h3 className="text-3xl font-heading font-bold text-black mb-10">Frequently Asked Questions</h3>
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     {service.faqs.map((faq: any, i: number) => (
-                      <div key={i} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-                        <h4 className="text-xl font-bold text-black mb-3">{faq.question}</h4>
-                        <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                      </div>
+                      <details open={i === 0} key={i} className="group bg-grayCustom-light rounded-2xl border border-gray-100 [&_summary::-webkit-details-marker]:hidden open:shadow-md transition-all duration-300">
+                        <summary className="flex cursor-pointer items-center justify-between gap-1.5 p-6 font-bold text-lg text-gray-900 transition-all">
+                          {faq.question}
+                          <ChevronDown className="w-6 h-6 text-primary transition-transform duration-300 group-open:rotate-180 shrink-0" />
+                        </summary>
+                        <p className="px-6 pb-6 pt-2 text-gray-700 leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </details>
                     ))}
                   </div>
                 </div>
@@ -229,10 +238,20 @@ export default async function ServiceDetailsPage({ params }: Props) {
               <div className="mt-16 pt-12 border-t border-gray-200">
                 <h3 className="text-xl font-bold text-black mb-6">Explore Other Services</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Link href="/services/tire-services-manchester-nh" className="text-primary hover:underline font-medium">Tire Services</Link>
-                  <Link href="/services/brake-repair-manchester-nh" className="text-primary hover:underline font-medium">Brake Repair</Link>
-                  <Link href="/services/suspension-steering-repair-manchester-nh" className="text-primary hover:underline font-medium">Suspension Inspection</Link>
-                  <Link href="/" className="text-primary hover:underline font-medium">Home</Link>
+                  {otherServices.map((other) => {
+                    // Get clean short title (e.g. Brake Repair instead of Brake Repair & Replacement)
+                    const cleanTitle = other.title.split(' & ')[0].split(' | ')[0];
+                    return (
+                      <Link 
+                        key={other.slug}
+                        href={`/services/${other.slug}`} 
+                        className="flex items-center justify-center px-6 py-3 bg-gray-100 rounded-full text-gray-800 font-semibold shadow-sm hover:bg-primary hover:text-white transition-colors text-center text-sm"
+                      >
+                        {cleanTitle}
+                      </Link>
+                    );
+                  })}
+                  <Link href="/" className="flex items-center justify-center px-6 py-3 bg-primary rounded-full text-white font-semibold shadow-sm hover:bg-red-700 transition-colors text-center text-sm">Home</Link>
                 </div>
               </div>
             </div>

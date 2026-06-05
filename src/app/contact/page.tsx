@@ -73,7 +73,7 @@ export default function ContactPage() {
             <div className="lg:w-1/3 bg-black text-white p-10 flex flex-col justify-center relative overflow-hidden">
               <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center"></div>
               <div className="relative z-10">
-                <h3 className="text-3xl font-bold mb-4 font-heading">Need an Appointment?</h3>
+                <h3 className="text-3xl font-bold mb-4 font-heading text-white">Need an Appointment?</h3>
                 <p className="text-gray-400 mb-8 leading-relaxed">Skip the phone call and request your preferred time online. We typically respond within 1 business hour to confirm.</p>
                 <Link href="/book-appointment" className="block w-full bg-primary hover:bg-red-700 text-white text-center py-4 rounded-xl font-bold uppercase tracking-wide transition-transform active:scale-95 shadow-[0_0_20px_rgba(225,6,0,0.3)]">
                   Book Online Now

@@ -1,11 +1,15 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { FaWhatsapp } from "react-icons/fa";
 
 export default function FloatingWhatsApp() {
+  const pathname = usePathname();
   const phoneNumber = "16036224428"; // Format: country code + number
   const message = "Hello Modern Auto Garage, I would like to inquire about a service.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  if (pathname.startsWith("/studio")) return null;
 
   return (
     <a

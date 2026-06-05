@@ -3,12 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, Phone, ChevronDown, ArrowRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { servicesData } from "@/data/services";
 
 export default function Header() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   
+  if (pathname.startsWith("/studio")) return null;
+
   const topServices = servicesData.slice(0, 5);
 
   return (
@@ -27,9 +31,11 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 items-center h-full">
+          <nav className="hidden md:flex space-x-6 lg:space-x-8 items-center h-full">
             
             <Link href="/" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Home</Link>
+            <Link href="/inventory" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Cars for Sale</Link>
+            <Link href="/rentals" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Rentals</Link>
 
             <div className="relative group h-full flex items-center">
               <Link href="/services" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">
@@ -54,7 +60,6 @@ export default function Header() {
             </div>
 
             <Link href="/about" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">About</Link>
-            <Link href="/gallery" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Gallery</Link>
             <Link href="/contact" className="text-grayCustom-light hover:text-primary transition-colors font-medium flex items-center h-full">Contact</Link>
             
             <div className="flex items-center space-x-4 pl-4 border-l border-gray-800">
@@ -100,6 +105,20 @@ export default function Header() {
           >
             Home
           </Link>
+          <Link 
+            href="/inventory" 
+            className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Cars for Sale
+          </Link>
+          <Link 
+            href="/rentals" 
+            className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Rentals
+          </Link>
 
           <div>
             <button 
@@ -130,13 +149,6 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(false)}
           >
             About
-          </Link>
-          <Link 
-            href="/gallery" 
-            className="text-2xl font-heading font-bold text-white hover:text-primary transition-colors pb-4 border-b border-gray-800 block"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Gallery
           </Link>
           <Link 
             href="/contact" 
