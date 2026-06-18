@@ -121,60 +121,60 @@ export default async function RentalDetailPage({ params }: PageProps) {
                 Rental Specifications
               </h2>
               
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 
                 {/* Year */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Calendar className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Year</p>
-                    <p className="font-extrabold text-black text-lg">{rental.year}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Year</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{rental.year}</p>
                   </div>
                 </div>
 
                 {/* Mileage */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Gauge className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Mileage</p>
-                    <p className="font-extrabold text-black text-lg">{formattedMileage} mi</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Mileage</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{formattedMileage} mi</p>
                   </div>
                 </div>
 
                 {/* Transmission */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Settings2 className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Transmission</p>
-                    <p className="font-extrabold text-black text-lg">{rental.transmission}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Transmission</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{rental.transmission}</p>
                   </div>
                 </div>
 
                 {/* Fuel Type */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Fuel className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Fuel Type</p>
-                    <p className="font-extrabold text-black text-lg">{rental.fuelType}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Fuel Type</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{rental.fuelType}</p>
                   </div>
                 </div>
 
                 {/* Body Type */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Compass className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Body Style</p>
-                    <p className="font-extrabold text-black text-lg">{rental.bodyType || 'Sedan/SUV'}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Body Style</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{rental.bodyType || 'Sedan/SUV'}</p>
                   </div>
                 </div>
 

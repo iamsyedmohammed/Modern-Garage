@@ -7,6 +7,7 @@ import {
 import StatsSection from "@/components/StatsSection";
 import SymptomChecker from "@/components/SymptomChecker";
 import FeaturedInventory from "@/components/FeaturedInventory";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 
 const brands = [
   { name: "Audi", src: "/brands/audi-logo.png" },
@@ -384,7 +385,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {[ 
               { title: "Complete Engine Rebuild", tag: "Engine", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Brake Rotor Replacement", tag: "Brakes", img: "https://images.unsplash.com/photo-1579606132009-17bd127aa2fd?q=80&w=800&auto=format&fit=crop" },
+              { title: "Brake Rotor Replacement", tag: "Brakes", img: "/images/brake-rotor-replacement.png" },
               { title: "Full Exhaust Installation", tag: "Exhaust", img: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=800&auto=format&fit=crop" }
             ].map((item, i) => (
               <div 
@@ -421,6 +422,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* INTERACTIVE BEFORE & AFTER SLIDER */}
+      <BeforeAfterSlider />
 
       {/* CUSTOMER REVIEWS */}
       <section className="py-16 md:py-24 bg-grayCustom-light">

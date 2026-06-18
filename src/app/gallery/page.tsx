@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 
 const galleryItems = [
   { title: "Complete Engine Rebuild", category: "Engine", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1200&auto=format&fit=crop" },
-  { title: "Brake System Overhaul", category: "Brakes", img: "https://images.unsplash.com/photo-1579606132009-17bd127aa2fd?q=80&w=800&auto=format&fit=crop" },
+  { title: "Brake System Overhaul", category: "Brakes", img: "/images/brake-rotor-replacement.png" },
   { title: "Custom Exhaust Work", category: "Exhaust", img: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=800&auto=format&fit=crop" },
   { title: "Suspension Diagnostics", category: "Suspension", img: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" },
   { title: "Performance Tuning", category: "Performance", img: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" },
   { title: "Wheel & Tire Fitting", category: "Tires", img: "https://images.unsplash.com/photo-1530906358829-e84b2769270f?q=80&w=800&auto=format&fit=crop" },
-  { title: "Engine Bay Detailing", category: "Maintenance", img: "https://images.unsplash.com/photo-1610484742616-56263300ce43?q=80&w=800&auto=format&fit=crop" },
-  { title: "Full Vehicle Inspection", category: "Inspections", img: "https://images.unsplash.com/photo-1635424710928-0524e52748ef?q=80&w=800&auto=format&fit=crop" },
-  { title: "Transmission Servicing", category: "Transmission", img: "https://images.unsplash.com/photo-1503376711718-d0690cb2e831?q=80&w=800&auto=format&fit=crop" }
+  { title: "Engine Bay Detailing", category: "Maintenance", img: "/images/engine-bay-detailing.png" },
+  { title: "Full Vehicle Inspection", category: "Inspections", img: "/images/full-vehicle-inspection.png" },
+  { title: "Transmission Servicing", category: "Transmission", img: "/images/transmission-servicing.png" }
 ];
 
 export default function GalleryPage() {

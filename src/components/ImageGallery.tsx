@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { urlForImage } from '@/sanity/lib/image'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface ImageGalleryProps {
   images: any[]
@@ -10,6 +11,31 @@ interface ImageGalleryProps {
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   const [activeImage, setActiveImage] = useState(0)
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+
+  // Keyboard navigation for Lightbox
+  useEffect(() => {
+    if (!isLightboxOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsLightboxOpen(false)
+      } else if (e.key === 'ArrowRight') {
+        setActiveImage((prev) => (prev + 1) % images.length)
+      } else if (e.key === 'ArrowLeft') {
+        setActiveImage((prev) => (prev - 1 + images.length) % images.length)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    // Prevent background scrolling when lightbox is open
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'unset'
+    }
+  }, [isLightboxOpen, images.length])
 
   if (!images || images.length === 0) {
     return (
@@ -19,17 +45,35 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
     )
   }
 
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setActiveImage((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setActiveImage((prev) => (prev + 1) % images.length)
+  }
+
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <div className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-grayCustom-border shadow-sm">
+      <div 
+        onClick={() => setIsLightboxOpen(true)}
+        className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-grayCustom-border shadow-sm cursor-zoom-in group"
+      >
         <Image
           src={urlForImage(images[activeImage]).url()}
           alt="Vehicle visual"
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
           priority
         />
+        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <span className="bg-black/60 text-white text-xs font-bold px-4 py-2 rounded-full backdrop-blur-sm shadow-lg">
+            Click to expand
+          </span>
+        </div>
       </div>
 
       {/* Thumbnails */}
@@ -51,6 +95,62 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
               />
             </button>
           ))}
+        </div>
+      )}
+
+      {/* Lightbox Modal */}
+      {isLightboxOpen && (
+        <div 
+          className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center select-none"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Close Button */}
+          <button 
+            className="absolute top-6 right-6 text-white/80 hover:text-white p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+            onClick={() => setIsLightboxOpen(false)}
+            aria-label="Close Lightbox"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {/* Previous Button */}
+          {images.length > 1 && (
+            <button 
+              className="absolute left-4 sm:left-8 text-white/80 hover:text-white p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+              onClick={handlePrev}
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+          )}
+
+          {/* Main Lightbox Image */}
+          <div className="relative w-full max-w-[90vw] h-[75vh] flex items-center justify-center">
+            <Image
+              src={urlForImage(images[activeImage]).url()}
+              alt={`Fullscreen Vehicle visual ${activeImage + 1}`}
+              fill
+              className="object-contain"
+              sizes="90vw"
+              priority
+            />
+          </div>
+
+          {/* Next Button */}
+          {images.length > 1 && (
+            <button 
+              className="absolute right-4 sm:right-8 text-white/80 hover:text-white p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+              onClick={handleNext}
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          )}
+
+          {/* Indicator/Counter */}
+          <div className="absolute bottom-6 bg-black/60 text-white/90 text-sm font-bold px-4 py-1.5 rounded-full border border-white/10">
+            {activeImage + 1} / {images.length}
+          </div>
         </div>
       )}
     </div>

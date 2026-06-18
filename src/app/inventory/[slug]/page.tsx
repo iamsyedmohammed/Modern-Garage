@@ -59,16 +59,6 @@ export default async function VehicleDetailPage({ params }: PageProps) {
 
   const formattedMileage = new Intl.NumberFormat('en-US').format(vehicle.mileage)
 
-  // Finance estimate calculation (72 months, 6.9% APR, 10% down payment)
-  const downPayment = vehicle.price * 0.1
-  const principal = vehicle.price - downPayment
-  const monthlyRate = 0.069 / 12
-  const totalMonths = 72
-  const estimatedPayment = Math.round(
-    (principal * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths))) /
-      (Math.pow(1 + monthlyRate, totalMonths) - 1)
-  )
-
   return (
     <main className="min-h-screen bg-gray-50/50 pb-24">
       <VehicleStructuredData vehicle={vehicle} />
@@ -139,71 +129,71 @@ export default async function VehicleDetailPage({ params }: PageProps) {
                 Vehicle Specifications
               </h2>
               
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 
                 {/* Year */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Calendar className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Year</p>
-                    <p className="font-extrabold text-black text-lg">{vehicle.year}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Year</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{vehicle.year}</p>
                   </div>
                 </div>
 
                 {/* Mileage */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Gauge className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Mileage</p>
-                    <p className="font-extrabold text-black text-lg">{formattedMileage} mi</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Mileage</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{formattedMileage} mi</p>
                   </div>
                 </div>
 
                 {/* Transmission */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Settings2 className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Transmission</p>
-                    <p className="font-extrabold text-black text-lg">{vehicle.transmission}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Transmission</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{vehicle.transmission}</p>
                   </div>
                 </div>
 
                 {/* Fuel Type */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Fuel className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Fuel Type</p>
-                    <p className="font-extrabold text-black text-lg">{vehicle.fuelType}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Fuel Type</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{vehicle.fuelType}</p>
                   </div>
                 </div>
 
                 {/* Body Type */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <Compass className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Body Style</p>
-                    <p className="font-extrabold text-black text-lg">{vehicle.bodyType || 'Sedan/SUV'}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Body Style</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{vehicle.bodyType || 'Sedan/SUV'}</p>
                   </div>
                 </div>
 
                 {/* Condition */}
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex items-start gap-4 hover:bg-gray-100/50 transition-colors">
+                <div className="bg-gray-50 p-3.5 sm:p-5 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 hover:bg-gray-100/50 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <ShieldCheck className="w-5 h-5" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5">Condition</p>
-                    <p className="font-extrabold text-black text-lg">{vehicle.condition}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] text-gray-400 uppercase font-bold tracking-wider mb-0.5 truncate">Condition</p>
+                    <p className="font-extrabold text-black text-base sm:text-lg truncate">{vehicle.condition}</p>
                   </div>
                 </div>
 
@@ -281,16 +271,9 @@ export default async function VehicleDetailPage({ params }: PageProps) {
               <div className="bg-gradient-to-b from-gray-900 via-black to-black text-white rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden border border-gray-800">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
                 
-                <p className="text-gray-400 font-extrabold uppercase tracking-widest text-[10px] mb-2">Modern Garage Price</p>
-                <h3 className="text-5xl lg:text-6xl font-black mb-2 tracking-tight text-white">{formattedPrice}</h3>
+                <p className="text-gray-400 font-extrabold uppercase tracking-widest text-[10px] mb-6">Modern Garage Price</p>
+                <h3 className="text-5xl lg:text-6xl font-black mb-6 tracking-tight text-white">{formattedPrice}</h3>
                 
-                {/* Finance estimation */}
-                {vehicle.price > 0 && (
-                  <p className="text-gray-400 text-xs font-medium mb-6">
-                    Estimated payment: <span className="text-white font-extrabold">${estimatedPayment}/mo</span> for 72 mos.
-                  </p>
-                )}
-
                 <hr className="border-white/10 mb-6" />
 
                 <div className="space-y-4 mb-8">

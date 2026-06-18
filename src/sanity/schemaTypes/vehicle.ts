@@ -135,6 +135,9 @@ export const vehicleType = defineType({
       title: 'Gallery',
       type: 'array',
       of: [{ type: 'image', options: { hotspot: true } }],
+      options: {
+        layout: 'grid',
+      },
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
