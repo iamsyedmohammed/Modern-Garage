@@ -30,7 +30,7 @@ export default async function RentalsPage({ searchParams }: PageProps) {
   const { brand, maxPrice, year, maxMileage, transmission, bodyType, sort, q } = await searchParams
 
   // Dynamic GROQ query based on filters
-  let filter = `_type == "rental"`
+  let filter = `_type == "rental" && status != "Hidden"`
   if (brand) filter += ` && brand == "${brand}"`
   if (maxPrice) filter += ` && pricePerDay <= ${maxPrice}`
   if (year) filter += ` && year >= ${year}`

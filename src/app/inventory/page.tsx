@@ -5,6 +5,8 @@ import { Vehicle } from '@/types/vehicle'
 import VehicleCard from '@/components/VehicleCard'
 import FilterBar from '@/components/FilterBar'
 import { groq } from 'next-sanity'
+import Link from 'next/link'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export const revalidate = 0;
 
@@ -24,14 +26,20 @@ interface PageProps {
     bodyType?: string
     sort?: string
     q?: string
+    page?: string
   }>
 }
 
 export default async function InventoryPage({ searchParams }: PageProps) {
-  const { brand, maxPrice, year, maxMileage, condition, transmission, bodyType, sort, q } = await searchParams
+  const { brand, maxPrice, year, maxMileage, condition, transmission, bodyType, sort, q, page } = await searchParams
+
+  const currentPage = Math.max(1, parseInt(page || '1', 10))
+  const itemsPerPage = 12
+  const start = (currentPage - 1) * itemsPerPage
+  const end = currentPage * itemsPerPage
 
   // Dynamic GROQ query based on filters
-  let filter = `_type == "vehicle"`
+  let filter = `_type == "vehicle" && status != "Hidden"`
   if (brand) filter += ` && brand == "${brand}"`
   if (maxPrice) filter += ` && price <= ${maxPrice}`
   if (year) filter += ` && year >= ${year}`
@@ -48,7 +56,7 @@ export default async function InventoryPage({ searchParams }: PageProps) {
   if (sort === 'year-desc') order = `year desc`
   if (sort === 'mileage-asc') order = `mileage asc`
 
-  const vehiclesQuery = groq`*[${filter}] | order(${order}) {
+  const vehiclesQuery = groq`*[${filter}] | order(${order}) [${start}...${end}] {
     _id,
     title,
     slug,
@@ -65,18 +73,37 @@ export default async function InventoryPage({ searchParams }: PageProps) {
     status
   }`
 
+  const countQuery = groq`count(*[${filter}])`
+
   // Fetch unique brands and body types for the filter bar
   const brandsQuery = groq`*[_type == "vehicle"].brand`
   const bodyTypesQuery = groq`*[_type == "vehicle"].bodyType`
   
-  const [vehicles, allBrands, allBodyTypes]: [Vehicle[], string[], string[]] = await Promise.all([
+  const [vehicles, totalCount, allBrands, allBodyTypes]: [Vehicle[], number, string[], string[]] = await Promise.all([
     client.fetch(vehiclesQuery),
+    client.fetch(countQuery),
     client.fetch(brandsQuery),
     client.fetch(bodyTypesQuery)
   ])
 
+  const totalPages = Math.ceil(totalCount / itemsPerPage)
   const uniqueBrands = Array.from(new Set(allBrands.filter(Boolean))).sort()
   const uniqueBodyTypes = Array.from(new Set(allBodyTypes.filter(Boolean))).sort()
+
+  const createQueryString = (pageNum: number) => {
+    const params = new URLSearchParams()
+    if (brand) params.set('brand', brand)
+    if (maxPrice) params.set('maxPrice', maxPrice)
+    if (year) params.set('year', year)
+    if (maxMileage) params.set('maxMileage', maxMileage)
+    if (condition) params.set('condition', condition)
+    if (transmission) params.set('transmission', transmission)
+    if (bodyType) params.set('bodyType', bodyType)
+    if (sort) params.set('sort', sort)
+    if (q) params.set('q', q)
+    params.set('page', pageNum.toString())
+    return `/inventory?${params.toString()}`
+  }
 
   return (
     <main className="min-h-screen pt-0 pb-20">
@@ -100,11 +127,66 @@ export default async function InventoryPage({ searchParams }: PageProps) {
 
         {/* Inventory Grid */}
         {vehicles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {vehicles.map((vehicle) => (
-              <VehicleCard key={vehicle._id} vehicle={vehicle} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {vehicles.map((vehicle) => (
+                <VehicleCard key={vehicle._id} vehicle={vehicle} />
+              ))}
+            </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 mt-16">
+                {/* Previous Button */}
+                {currentPage > 1 ? (
+                  <Link
+                    href={createQueryString(currentPage - 1)}
+                    className="p-3 bg-white border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-all shadow-sm"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </Link>
+                ) : (
+                  <span className="p-3 bg-gray-50 border border-gray-100 rounded-xl text-gray-300 cursor-not-allowed shadow-none">
+                    <ChevronLeft className="w-5 h-5" />
+                  </span>
+                )}
+
+                {/* Page Numbers */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
+                  const isCurrent = pageNum === currentPage
+                  return (
+                    <Link
+                      key={pageNum}
+                      href={createQueryString(pageNum)}
+                      className={`px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm ${
+                        isCurrent
+                          ? 'bg-primary border border-primary text-white'
+                          : 'bg-white border border-gray-200 hover:border-primary hover:text-primary'
+                      }`}
+                    >
+                      {pageNum}
+                    </Link>
+                  )
+                })}
+
+                {/* Next Button */}
+                {currentPage < totalPages ? (
+                  <Link
+                    href={createQueryString(currentPage + 1)}
+                    className="p-3 bg-white border border-gray-200 rounded-xl hover:border-primary hover:text-primary transition-all shadow-sm"
+                    aria-label="Next page"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </Link>
+                ) : (
+                  <span className="p-3 bg-gray-50 border border-gray-100 rounded-xl text-gray-300 cursor-not-allowed shadow-none">
+                    <ChevronRight className="w-5 h-5" />
+                  </span>
+                )}
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-20 bg-grayCustom-light rounded-[2rem] border border-grayCustom-border px-6">
             <h2 className="text-3xl font-black text-black mb-4">No Vehicles Found</h2>

@@ -69,7 +69,7 @@ export default function Home() {
         
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-3xl">
-            <div className="inline-block px-4 py-1.5 bg-primary/20 border border-primary/50 text-white font-semibold rounded-full mb-6 backdrop-blur-sm">
+            <div className="inline-block px-4 py-1.5 bg-primary/20 border border-primary/50 text-white font-semibold rounded-full mb-6 backdrop-blur-sm text-xs sm:text-sm whitespace-nowrap">
               Premium Auto Repair in Manchester, NH
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-heading font-bold text-white leading-tight mb-6">
