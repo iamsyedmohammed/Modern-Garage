@@ -155,6 +155,7 @@ export const vehicleType = defineType({
           { title: 'Available', value: 'Available' },
           { title: 'Sold', value: 'Sold' },
           { title: 'Reserved', value: 'Reserved' },
+          { title: 'Hidden', value: 'Hidden' },
         ],
       },
       initialValue: 'Available',

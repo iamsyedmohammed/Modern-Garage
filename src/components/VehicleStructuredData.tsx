@@ -12,7 +12,7 @@ const VehicleStructuredData: React.FC<StructuredDataProps> = ({ vehicle }) => {
     '@type': 'Car',
     name: vehicle.title,
     description: vehicle.title + ' for sale at Modern Auto Garage NH',
-    image: vehicle.images?.map((img) => urlForImage(img).url()),
+    image: vehicle.images?.filter((img) => img && img.asset).map((img) => urlForImage(img).url()),
     brand: {
       '@type': 'Brand',
       name: vehicle.brand,

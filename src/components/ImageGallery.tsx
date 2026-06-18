@@ -10,6 +10,7 @@ interface ImageGalleryProps {
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
+  const validImages = images?.filter((img) => img && img.asset) || []
   const [activeImage, setActiveImage] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
 
@@ -21,9 +22,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
       if (e.key === 'Escape') {
         setIsLightboxOpen(false)
       } else if (e.key === 'ArrowRight') {
-        setActiveImage((prev) => (prev + 1) % images.length)
+        setActiveImage((prev) => (prev + 1) % validImages.length)
       } else if (e.key === 'ArrowLeft') {
-        setActiveImage((prev) => (prev - 1 + images.length) % images.length)
+        setActiveImage((prev) => (prev - 1 + validImages.length) % validImages.length)
       }
     }
 
@@ -35,9 +36,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
       window.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = 'unset'
     }
-  }, [isLightboxOpen, images.length])
+  }, [isLightboxOpen, validImages.length])
 
-  if (!images || images.length === 0) {
+  if (validImages.length === 0) {
     return (
       <div className="aspect-[16/10] bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400">
         No images available
@@ -47,12 +48,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation()
-    setActiveImage((prev) => (prev - 1 + images.length) % images.length)
+    setActiveImage((prev) => (prev - 1 + validImages.length) % validImages.length)
   }
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation()
-    setActiveImage((prev) => (prev + 1) % images.length)
+    setActiveImage((prev) => (prev + 1) % validImages.length)
   }
 
   return (
@@ -63,7 +64,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
         className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-grayCustom-border shadow-sm cursor-zoom-in group"
       >
         <Image
-          src={urlForImage(images[activeImage]).url()}
+          src={urlForImage(validImages[activeImage]).url()}
           alt="Vehicle visual"
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -77,9 +78,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
       </div>
 
       {/* Thumbnails */}
-      {images.length > 1 && (
+      {validImages.length > 1 && (
         <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3">
-          {images.map((img, idx) => (
+          {validImages.map((img, idx) => (
             <button
               key={idx}
               onClick={() => setActiveImage(idx)}
@@ -114,7 +115,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
           </button>
 
           {/* Previous Button */}
-          {images.length > 1 && (
+          {validImages.length > 1 && (
             <button 
               className="absolute left-4 sm:left-8 text-white/80 hover:text-white p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all"
               onClick={handlePrev}
@@ -127,7 +128,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
           {/* Main Lightbox Image */}
           <div className="relative w-full max-w-[90vw] h-[75vh] flex items-center justify-center">
             <Image
-              src={urlForImage(images[activeImage]).url()}
+              src={urlForImage(validImages[activeImage]).url()}
               alt={`Fullscreen Vehicle visual ${activeImage + 1}`}
               fill
               className="object-contain"
@@ -137,7 +138,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
           </div>
 
           {/* Next Button */}
-          {images.length > 1 && (
+          {validImages.length > 1 && (
             <button 
               className="absolute right-4 sm:right-8 text-white/80 hover:text-white p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all"
               onClick={handleNext}
@@ -149,7 +150,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
 
           {/* Indicator/Counter */}
           <div className="absolute bottom-6 bg-black/60 text-white/90 text-sm font-bold px-4 py-1.5 rounded-full border border-white/10">
-            {activeImage + 1} / {images.length}
+            {activeImage + 1} / {validImages.length}
           </div>
         </div>
       )}

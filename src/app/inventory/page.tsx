@@ -6,6 +6,8 @@ import VehicleCard from '@/components/VehicleCard'
 import FilterBar from '@/components/FilterBar'
 import { groq } from 'next-sanity'
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'Vehicle Inventory | Modern Auto Garage NH',
   description: 'Browse our curated selection of high-quality used vehicles in Manchester, NH. Every car is inspected and ready for the road.',

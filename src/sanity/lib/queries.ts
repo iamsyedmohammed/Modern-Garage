@@ -1,6 +1,6 @@
 import { groq } from 'next-sanity'
 
-export const vehiclesQuery = groq`*[_type == "vehicle"] | order(_createdAt desc) {
+export const vehiclesQuery = groq`*[_type == "vehicle" && status != "Hidden"] | order(_createdAt desc) {
   _id,
   title,
   slug,
@@ -17,7 +17,7 @@ export const vehiclesQuery = groq`*[_type == "vehicle"] | order(_createdAt desc)
   status
 }`
 
-export const featuredVehiclesQuery = groq`*[_type == "vehicle" && featured == true] | order(_createdAt desc) {
+export const featuredVehiclesQuery = groq`*[_type == "vehicle" && featured == true && status != "Hidden"] | order(_createdAt desc) {
   _id,
   title,
   slug,
@@ -42,7 +42,7 @@ export const vehicleBySlugQuery = groq`*[_type == "vehicle" && slug.current == $
   }
 }`
 
-export const rentalsQuery = groq`*[_type == "rental"] | order(_createdAt desc) {
+export const rentalsQuery = groq`*[_type == "rental" && status != "Hidden"] | order(_createdAt desc) {
   _id,
   title,
   slug,
@@ -58,7 +58,7 @@ export const rentalsQuery = groq`*[_type == "rental"] | order(_createdAt desc) {
   status
 }`
 
-export const featuredRentalsQuery = groq`*[_type == "rental" && featured == true] | order(_createdAt desc) {
+export const featuredRentalsQuery = groq`*[_type == "rental" && featured == true && status != "Hidden"] | order(_createdAt desc) {
   _id,
   title,
   slug,

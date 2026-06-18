@@ -9,6 +9,8 @@ import SymptomChecker from "@/components/SymptomChecker";
 import FeaturedInventory from "@/components/FeaturedInventory";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 
+export const revalidate = 0;
+
 const brands = [
   { name: "Audi", src: "/brands/audi-logo.png" },
   { name: "BMW", src: "/brands/bmw-logo.png" },

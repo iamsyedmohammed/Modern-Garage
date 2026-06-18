@@ -6,6 +6,8 @@ import RentalCard from '@/components/RentalCard'
 import RentalFilterBar from '@/components/RentalFilterBar'
 import { groq } from 'next-sanity'
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'Car Rentals | Modern Auto Garage NH',
   description: 'Rent clean, reliable, and well-maintained vehicles in Manchester, NH. Perfect for travel, temporary replacements, or special trips.',

@@ -137,6 +137,7 @@ export const rentalType = defineType({
           { title: 'Available', value: 'Available' },
           { title: 'Rented', value: 'Rented' },
           { title: 'Maintenance', value: 'Maintenance' },
+          { title: 'Hidden', value: 'Hidden' },
         ],
       },
       initialValue: 'Available',

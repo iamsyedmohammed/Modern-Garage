@@ -7,6 +7,8 @@ import { RentalVehicle } from '@/types/rental'
 import ImageGallery from '@/components/ImageGallery'
 import RentalStructuredData from '@/components/RentalStructuredData'
 import { PortableText } from '@portabletext/react'
+
+export const revalidate = 0;
 import { 
   Fuel, 
   Gauge, 

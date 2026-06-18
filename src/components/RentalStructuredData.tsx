@@ -12,7 +12,7 @@ const RentalStructuredData: React.FC<StructuredDataProps> = ({ rental }) => {
     '@type': 'Car',
     name: rental.title,
     description: rental.title + ' for rent at Modern Auto Garage NH',
-    image: rental.images?.map((img) => urlForImage(img).url()),
+    image: rental.images?.filter((img) => img && img.asset).map((img) => urlForImage(img).url()),
     brand: {
       '@type': 'Brand',
       name: rental.brand,

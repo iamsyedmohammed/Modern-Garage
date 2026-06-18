@@ -7,6 +7,8 @@ import { Vehicle } from '@/types/vehicle'
 import ImageGallery from '@/components/ImageGallery'
 import VehicleStructuredData from '@/components/VehicleStructuredData'
 import { PortableText } from '@portabletext/react'
+
+export const revalidate = 0;
 import { 
   Fuel, 
   Gauge, 
