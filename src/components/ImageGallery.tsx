@@ -107,7 +107,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
         >
           {/* Close Button */}
           <button 
-            className="absolute top-6 right-6 text-white/80 hover:text-white p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+            className="absolute top-6 right-6 z-50 text-white p-2.5 bg-black/60 hover:bg-black/80 rounded-full border border-white/10 transition-all shadow-lg"
             onClick={() => setIsLightboxOpen(false)}
             aria-label="Close Lightbox"
           >
@@ -117,7 +117,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
           {/* Previous Button */}
           {validImages.length > 1 && (
             <button 
-              className="absolute left-4 sm:left-8 text-white/80 hover:text-white p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+              className="absolute left-4 sm:left-8 z-50 text-white p-3 bg-black/60 hover:bg-black/80 rounded-full border border-white/10 transition-all shadow-lg"
               onClick={handlePrev}
               aria-label="Previous image"
             >
@@ -126,7 +126,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
           )}
 
           {/* Main Lightbox Image */}
-          <div className="relative w-full max-w-[90vw] h-[75vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[90vw] h-[75vh] flex items-center justify-center z-10">
             <Image
               src={urlForImage(validImages[activeImage]).url()}
               alt={`Fullscreen Vehicle visual ${activeImage + 1}`}
@@ -140,7 +140,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
           {/* Next Button */}
           {validImages.length > 1 && (
             <button 
-              className="absolute right-4 sm:right-8 text-white/80 hover:text-white p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+              className="absolute right-4 sm:right-8 z-50 text-white p-3 bg-black/60 hover:bg-black/80 rounded-full border border-white/10 transition-all shadow-lg"
               onClick={handleNext}
               aria-label="Next image"
             >
